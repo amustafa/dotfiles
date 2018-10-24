@@ -85,7 +85,8 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 #MY PLUGINS
 # my-aliases
 
-plugins=(my-aliases sudo copybuffer copydir copyfile git github gitflow gitignore cp direnv autojump autopep8 command-not-found pep8 bgnotify extract jsontools virtualenvwrapper vi-mode pip command-not-found tmux urltools wd znt web-search copyfile rsync httpie jump nmap pylint taskwarrior tig z last-working-directory colorize golang)
+# if OSX add brew osx
+plugins=(my-aliases sudo copybuffer copydir copyfile git github gitignore cp autopep8 command-not-found pep8 bgnotify extract jsontools vi-mode pip tmux urltools wd znt copyfile rsync httpie nmap pylint taskwarrior tig last-working-directory colorize golang docker node npm)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -94,8 +95,8 @@ source $ZSH/oh-my-zsh.sh
 export JAVA_HOME="$(jrunscript -e 'java.lang.System.out.println(java.lang.System.getProperty("java.home"));')"
 
 # Spark
-export SPARK_HOME=/home/amustafa/opt/spark
-export PYSPARK_PYTHON=/home/amustafa/opt/anaconda3/bin/python
+export SPARK_HOME=$HOME/opt/spark
+export PYSPARK_PYTHON=$HOME/opt/anaconda3/bin/python
 export PATH="$SPARK_HOME/bin:$PATH"
 #export PYSPARK_DRIVER_PYTHON=/opt/anaconda3/bin/ipython
 # export PYTHONPATH="$SPARK_HOME/python:/srv/spark/python/lib/py4j-0.10.4-src.zip:$PYTHONPATH"
@@ -103,13 +104,35 @@ export PATH="$SPARK_HOME/bin:$PATH"
 # spark://localhost:7077"
 
 # Hadoop
-export HADOOP_HOME=/home/amustafa/opt/hadoop
+export HADOOP_HOME=$HOME/opt/hadoop
 export PATH=$PATH:$HADOOP_HOME/bin
 
+################################3
 # Anaconda
 #   Keep Last so it's libraries are first.
-export PATH=/home/amustafa/opt/anaconda3/bin:$PATH
+## IF UBUNTU
+export PATH=$HOME/opt/anaconda3/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
+#
+# added by Anaconda3 5.3.0 installer
+# >>> conda init >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$(CONDA_REPORT_ERRORS=false '/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    \eval "$__conda_setup"
+else
+    if [ -f "/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/anaconda3/etc/profile.d/conda.sh"
+        CONDA_CHANGEPS1=false conda activate base
+    else
+        \export PATH="/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda init <<<
+#########################################
+
+
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -117,6 +140,7 @@ export PATH=/home/amustafa/opt/anaconda3/bin:$PATH
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
+    export EDITOR='nvim'
 # else
 #   export EDITOR='mvim'
 # fi
@@ -135,9 +159,6 @@ export PATH=/home/amustafa/opt/anaconda3/bin:$PATH
 # Example aliases
 alias zshconfig="vim ~/.zshrc"
 # alias ohmyzsh="vim ~/.oh-my-zsh"
-#
-
-export EDITOR='nvim'
 
 # eval "$(direnv hook zsh)"
 # eval "$(fasd --init auto)"
