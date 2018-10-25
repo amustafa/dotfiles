@@ -27,3 +27,5 @@ mv custom/my-aliases ~/.oh-my-zsh/custom/plugins
 
 source ~/.zshrc
 
+
+
