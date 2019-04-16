@@ -111,7 +111,7 @@ zplug "supercrabtree/k"    # directory listing with git features
 zplug "zsh-users/zsh-completions"
 zplug "djui/alias-tips"  # help remember aliases
 zplug "b4b4r07/enhancd", use:init.sh  # next gen cd command
-zplug "zsh-users/zsh-autosuggestions" # command auto completion
+# zplug "zsh-users/zsh-autosuggestions" # command auto completion
 zplug "zsh-users/zsh-apple-touchbar", if:"[[ $OSTYPE == *darwin* ]]"
 zplug "mollifier/zload"  # autoloading functions
 zplug "raylee/tldr", from:github, as:command, use:"tldr"
@@ -134,7 +134,6 @@ zplug "plugin/vi-mode", from:oh-my-zsh
 zplug "plugin/pip", from:oh-my-zsh
 zplug "plugin/tmux", from:oh-my-zsh
 zplug "plugin/urltools", from:oh-my-zsh
-zplug "plugin/wd", from:oh-my-zsh
 zplug "plugin/copyfile", from:oh-my-zsh
 zplug "plugin/rsync", from:oh-my-zsh
 zplug "plugin/httpie", from:oh-my-zsh
@@ -149,6 +148,9 @@ zplug "plugin/npm", from:oh-my-zsh
 zplug "junegunn/fzf", use:"shell/*.zsh"
 zplug "plugin/fancy-ctrl-z", from:oh-my-zsh
 zplug "plugin/brew", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+
+zplug "amustafa/dotfiles", use:"zsh/custom/plugins/direnv/*.zsh"
+zplug "amustafa/dotfiles", use:"zsh/custom/plugins/fzf/*.zsh"
    
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -214,5 +216,4 @@ fi
 
 zplug load
 
-eval "$(direnv hook zsh)"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
