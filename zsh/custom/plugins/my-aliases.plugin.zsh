@@ -1,5 +1,5 @@
 # Advanced Aliases.
-#
+alias zshconfig="vim ~/.zshrc"
 
 # ls, the common ones I use a lot shortened for rapid fire usage
 alias l='ls -lFh'     #size,show type,human readable
@@ -12,13 +12,9 @@ alias lS='ls -1FSsh'
 alias lart='ls -1Fcart'
 alias lrt='ls -1Fcrt'
 
-alias zshrc-edit='$EDITOR ~/.zshrc' # Quick access to the ~/.zshrc file
-
 alias grep='grep --color'
 alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} ' # recursive line number with filename print 5 lines
 
-
-#alias t='tail -f'
 
 # Command line head / tail shortcuts
 alias -g H='| head'

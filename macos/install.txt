@@ -1,1 +1,4 @@
 calc
+the_silver_searcher
+pcre
+coreutils

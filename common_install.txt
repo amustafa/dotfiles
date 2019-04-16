@@ -1,5 +1,5 @@
 ack
-the_silver_searcher
 fzf
 autojump
 bat
+httpie
