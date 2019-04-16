@@ -1,5 +1,6 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 export ZSH_CONFIG_HOME="${XDG_CONFIG_HOME}/zsh"
+export ZPLUG_HOME=$HOME/usr/zplug
 
 # Install
 sudo apt-get install zsh
@@ -9,7 +10,6 @@ zsh --version
 
 # Install zplug
 # export ZPLUG_HOME=$HOME/usr/zplug
-source zplug_settings.zsh
 mkdir -p $ZPLUG_HOME
 curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 
@@ -18,7 +18,6 @@ curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/instal
 chsh -s $(which zsh)
 
 # Create ZSH config location
-ZSH_CONFIG_HOME="${HOME}/.config/zsh"
 mkdir -p $ZSH_CONFIG_HOME
 
 # Install oh-my-zsh (outdated)
@@ -45,7 +44,7 @@ cp custom/zshrc $HOME/.zshrc
 
 # Move custom elements
 cp -r custom/my-aliases $ZSH_CONFIG_HOME/.oh-my-zsh/custom/plugins
-wget https://raw.githubusercontent.com/ggreer/the_silver_searcher/master/_the_silver_searcher
+#wget https://raw.githubusercontent.com/ggreer/the_silver_searcher/master/_the_silver_searcher
 mv _the_silver_searcher $ZSH_CONFIG_HOME/custom/plugins/the_silver_searcher.plugin.zsh
 
 

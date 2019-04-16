@@ -23,7 +23,7 @@ source $ZPLUG_HOME/init.zsh
 # Alias the tmux command for colors
 alias tmux="TERM=screen-256color-bce tmux"
 # Automatically start tmux on new terminal
-if [ "$TMUX" = "" ]; then tmux; fi
+#if [ "$TMUX" = "" ]; then tmux; fi
 
 
 # Path to your oh-my-zsh installation.
@@ -35,8 +35,43 @@ if [ "$TMUX" = "" ]; then tmux; fi
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="sonicradish"
 
-source $ZSH_CONFIG_HOME/zsh_settings.zsh
-source $ZSH_CONFIG_HOME/oh_my_zsh_plugins.zsh
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
 
 
 source $ZPLUG_HOME/init.zsh
@@ -45,7 +80,8 @@ source $ZPLUG_HOME/init.zsh
 ######## User configuration ##########
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
 
-zplug 'theme/sonicradish', from:oh-my-zsh, as:theme
+zplug 'themes/sonicradish', from:oh-my-zsh
+zplug "amustafa/dotfiles", use:"zsh/custom/plugins/*.zsh"
 
 # From oh my zsh
 zplug "lib/clipboard", from:oh-my-zsh # if:"[[ $OSTYPE == *darwin* ]]"
@@ -69,53 +105,50 @@ zplug "lib/spectrum", from:oh-my-zsh
 zplug "lib/termsupport", from:oh-my-zsh
 zplug "lib/theme-and-appearance", from:oh-my-zsh
 
-# # Make sure to use double quotes to prevent shell expansion
-# zplug "zsh-users/zsh-syntax-highlighting"
-# zplug "supercrabtree/k"    # directory listing with git features
-# zplug "zsh-users/zsh-completions"
-# zplug "djui/alias-tips"  # help remember aliases
-# zplug "b4b4r07/enhancd", use:init.sh  # next gen cd command
-# zplug "zsh-users/zsh-autosuggestions" # command auto completion
-# zplug "zsh-users/zsh-apple-touchbar" # touchbar integration
-# zplug "arzzen/calc.plugin.zsh"
-# zplug "mollifier/zload"  # autoloading functions
-# zplug "raylee/tldr", from:github, as:command, of:"tldr"
+# Make sure to use double quotes to prevent shell expansion
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "supercrabtree/k"    # directory listing with git features
+zplug "zsh-users/zsh-completions"
+zplug "djui/alias-tips"  # help remember aliases
+zplug "b4b4r07/enhancd", use:init.sh  # next gen cd command
+zplug "zsh-users/zsh-autosuggestions" # command auto completion
+zplug "zsh-users/zsh-apple-touchbar", if:"[[ $OSTYPE == *darwin* ]]"
+zplug "mollifier/zload"  # autoloading functions
+zplug "raylee/tldr", from:github, as:command, use:"tldr"
 
-# zplug "plugin/sudo", from:oh-my-zsh
-# zplug "plugin/copybuffer", from:oh-my-zsh
-# zplug "plugin/copydir", from:oh-my-zsh
-# zplug "plugin/copyfile", from:oh-my-zsh
-# zplug "plugin/git", from:oh-my-zsh
-# zplug "plugin/github", from:oh-my-zsh
-# zplug "plugin/gitignore", from:oh-my-zsh
-# zplug "plugin/cp", from:oh-my-zsh
-# zplug "plugin/autopep8", from:oh-my-zsh
-# zplug "plugin/command-not-found", from:oh-my-zsh
-# zplug "plugin/pep8", from:oh-my-zsh
-# zplug "plugin/bgnotify", from:oh-my-zsh
-# zplug "plugin/extract", from:oh-my-zsh
-# zplug "plugin/jsontools", from:oh-my-zsh
-# zplug "plugin/vi-mode", from:oh-my-zsh
-# zplug "plugin/pip", from:oh-my-zsh
-# zplug "plugin/tmux", from:oh-my-zsh
-# zplug "plugin/urltools", from:oh-my-zsh
-# zplug "plugin/wd", from:oh-my-zsh
-# zplug "plugin/copyfile", from:oh-my-zsh
-# zplug "plugin/rsync", from:oh-my-zsh
-# zplug "plugin/httpie", from:oh-my-zsh
-# zplug "plugin/nmap", from:oh-my-zsh
-# zplug "plugin/pylint", from:oh-my-zsh
-# zplug "plugin/taskwarrior", from:oh-my-zsh
-# zplug "plugin/tig", from:oh-my-zsh
-# zplug "plugin/last-working-dir", from:oh-my-zsh
-# zplug "plugin/colorize", from:oh-my-zsh
-# zplug "plugin/golang", from:oh-my-zsh
-# zplug "plugin/docker", from:oh-my-zsh
-# zplug "plugin/node", from:oh-my-zsh
-# zplug "plugin/npm", from:oh-my-zsh
-# zplug "plugin/fzf", from:oh-my-zsh
-# zplug "plugin/fancy-ctrl-z", from:oh-my-zsh
-# zplug "plugin/brew", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+zplug "plugin/sudo", from:oh-my-zsh
+zplug "plugin/copybuffer", from:oh-my-zsh
+zplug "plugin/copydir", from:oh-my-zsh
+zplug "plugin/copyfile", from:oh-my-zsh
+zplug "plugin/git", from:oh-my-zsh
+zplug "plugin/github", from:oh-my-zsh
+zplug "plugin/gitignore", from:oh-my-zsh
+zplug "plugin/cp", from:oh-my-zsh
+zplug "plugin/autopep8", from:oh-my-zsh
+zplug "plugin/command-not-found", from:oh-my-zsh
+zplug "plugin/pep8", from:oh-my-zsh
+zplug "plugin/bgnotify", from:oh-my-zsh
+zplug "plugin/extract", from:oh-my-zsh
+zplug "plugin/jsontools", from:oh-my-zsh
+zplug "plugin/vi-mode", from:oh-my-zsh
+zplug "plugin/pip", from:oh-my-zsh
+zplug "plugin/tmux", from:oh-my-zsh
+zplug "plugin/urltools", from:oh-my-zsh
+zplug "plugin/wd", from:oh-my-zsh
+zplug "plugin/copyfile", from:oh-my-zsh
+zplug "plugin/rsync", from:oh-my-zsh
+zplug "plugin/httpie", from:oh-my-zsh
+zplug "plugin/nmap", from:oh-my-zsh
+zplug "plugin/pylint", from:oh-my-zsh
+zplug "plugin/last-working-dir", from:oh-my-zsh
+zplug "plugin/colorize", from:oh-my-zsh
+zplug "plugin/golang", from:oh-my-zsh
+zplug "plugin/docker", from:oh-my-zsh
+zplug "plugin/node", from:oh-my-zsh
+zplug "plugin/npm", from:oh-my-zsh
+zplug "junegunn/fzf", use:"shell/*.zsh"
+zplug "plugin/fancy-ctrl-z", from:oh-my-zsh
+zplug "plugin/brew", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
    
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -159,8 +192,8 @@ export EDITOR='nvim'
 alias zshconfig="vim ~/.zshrc"
 alias vim="nvim"
 
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
-eval "$(pyenv init -)"
+# [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+# eval "$(pyenv init -)"
 
 # Source local zshrc
 if [ -f "$HOME/.zshrc.local" ]; then
@@ -179,4 +212,7 @@ if ! zplug check --verbose; then
 fi
 ###############################################################
 
-zplug load --verbose
+zplug load
+
+eval "$(direnv hook zsh)"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
