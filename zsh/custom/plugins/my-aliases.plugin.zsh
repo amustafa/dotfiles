@@ -1,6 +1,6 @@
 # Advanced Aliases.
 
-alias cat="bat"
+alias cat="bat "
 alias zshconfig="vim ~/.zshrc"
 
 # ls, the common ones I use a lot shortened for rapid fire usage

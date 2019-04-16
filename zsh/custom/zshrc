@@ -81,7 +81,7 @@ source $ZPLUG_HOME/init.zsh
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
 
 zplug 'themes/sonicradish', from:oh-my-zsh
-zplug "amustafa/dotfiles", use:"zsh/custom/plugins/*.zsh"
+zplug "amustafa/dotfiles", use:"zsh/custom/plugins/my-aliases.plugin.zsh"
 
 # From oh my zsh
 zplug "lib/clipboard", from:oh-my-zsh # if:"[[ $OSTYPE == *darwin* ]]"
