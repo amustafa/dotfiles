@@ -199,7 +199,7 @@ alias vim="nvim"
 
 # Source local zshrc
 if [ -f "$HOME/.zshrc.local" ]; then
-  source "$HOME/.zshrc.local"
+  source "$ZSH_CONFIG_HOME/zshrc.local"
 fi
 
 # #############################################################
