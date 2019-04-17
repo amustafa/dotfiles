@@ -3,7 +3,7 @@
 "       This requries that you install https://github.com/amix/vimrc !
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+:let g:session_autosave = 'no'
 
 """"""""""""""""""""""""""""""
 " => Load pathogen paths
@@ -50,8 +50,8 @@ map <leader>j :CtrlP<cr>
 map <c-b> :CtrlPBuffer<cr>
 
 let g:ctrlp_max_height = 20
-let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
 
+let g:ctrlp_user_command = 'ag %s -l --ignore .git --nocolor --hidden -g ""'
 
 """"""""""""""""""""""""""""""
 " => ZenCoding
@@ -177,7 +177,7 @@ let g:go_fmt_command = "goimports"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_linters = {
 \   'javascript': ['jshint'],
-\   'python': ['flake8', 'yapf', 'autopep8'],
+\   'python': ['pylint', 'mypy'],
 \   'go': ['go', 'golint', 'errcheck']
 \}
 
@@ -188,12 +188,12 @@ nmap <silent> <leader>a <Plug>(ale_next_wrap)
 
 let g:ale_emit_conflict_warnings = 1
 let g:ale_completion_enabled = 0
-let g:ale_sign_column_always = 1
+let g:ale_sign_column_always = 1 " keeps sign gutter open
 "
 " Put this in vimrc or a plugin file of your own.
 " After this is configured, :ALEFix will try and fix your JS code with ESLint.
 let g:ale_fixers = {
-\   'python': ['autopep8', 'yapf'],
+\   'python': ['yapf'],
 \}
 
 " Set this setting in vimrc if you want to fix files automatically on save.
