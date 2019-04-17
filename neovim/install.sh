@@ -2,8 +2,9 @@ pip install neovim
 pip install flake8
 pip install jedi
 
-git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
-sh ~/.vim_runtime/install_awesome_vimrc.sh
+NVIM_HOME=${HOME}/.config/nvim
+git clone --depth=1 https://github.com/amix/vimrc.git $NVIM_HOME/vim_runtime
+sh $NVIM_HOME/vim_runtime/install_awesome_vimrc.sh
 
-cp my_plugins_config.vim ~/.vim_runtime
-cp vimrc ~/.vimrc
+cp my_plugins_config.vim $NVIM_HOME/vim_runtime
+cp init.vim $NVIM_HOME
