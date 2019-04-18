@@ -76,6 +76,7 @@ fi
 #################################################################
 
 zplug load --verbose
+clear
 
 ## Source local zshrc
 if [ -f "$ZSH_CONFIG_HOME/zshrc.local" ]; then

@@ -31,6 +31,8 @@ if [ ! -e $ZPLUG_HOME ]; then
     echo "Installing Zplug"
     mkdir -p $ZPLUG_HOME
     curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+else
+    echo "Zplug already installed"
 fi
 
 # Set as default shell
@@ -61,12 +63,6 @@ fi
 cp custom/zshrc* $ZSH_CONFIG_HOME/
 
 ln -s $ZSH_CONFIG_HOME/zshrc $HOME/.zshrc
-
-# Move custom elements
-cp -r custom/my-aliases $ZSH_CONFIG_HOME/.oh-my-zsh/custom/plugins
-#wget https://raw.githubusercontent.com/ggreer/the_silver_searcher/master/_the_silver_searcher
-#mv _the_silver_searcher $ZSH_CONFIG_HOME/custom/plugins/the_silver_searcher.plugin.zsh
-
 
 source ~/.zshrc
 
