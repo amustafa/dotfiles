@@ -35,8 +35,10 @@ mkdir -p $AM_TMUX_CONFIG_HOME
 
 # Copy gpabosz tmux conf
 if [ -e ~/.tmux/plugins/tpm ]; then
-echo "Copying gpakosz tmux conf"
-curl https://raw.githubusercontent.com/gpakosz/.tmux/master/.tmux.conf > $AM_TMUX_CONFIG_HOME/gpakosz.tmux.conf
+    echo "Copying gpakosz tmux conf"
+    curl https://raw.githubusercontent.com/gpakosz/.tmux/master/.tmux.conf |
+        sed "s/~\/.tmux.conf.local/\$AM_TUX_CONFIG_HOME\/tmux\.conf\.local/g" |
+        sed "s/~\/.tmux.conf/\$AM_TUX_CONFIG_HOME\/tmux\.conf/g"  > $AM_TMUX_CONFIG_HOME/gpakosz.tmux.conf
 fi
 
 # Copy config files
