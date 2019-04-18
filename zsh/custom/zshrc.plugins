@@ -41,7 +41,7 @@ zplug "plugin/pep8", from:oh-my-zsh
 zplug "plugin/bgnotify", from:oh-my-zsh
 zplug "plugin/extract", from:oh-my-zsh
 zplug "plugin/jsontools", from:oh-my-zsh
-zplug "plugin/vi-mode", from:oh-my-zsh, defer=1
+zplug "plugin/vi-mode", from:oh-my-zsh, defer:1
 zplug "plugin/pip", from:oh-my-zsh
 zplug "plugin/tmux", from:oh-my-zsh
 zplug "plugin/urltools", from:oh-my-zsh

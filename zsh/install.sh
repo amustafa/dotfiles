@@ -1,4 +1,5 @@
 # Set default env vars
+echo "Setting Environment vars"
 if [ -z ${XDG_CONFIG_HOME+x} ]; then  # if var is unset
     export XDG_CONFIG_HOME="$HOME/.config"
 fi
@@ -9,17 +10,28 @@ fi
 
 export ZPLUG_HOME=$HOME/opt/zplug
 
-# Install
-sudo apt-get install zsh
+# Install ZSH
+if (which zsh); then
+    echo "ZSH  already installed"
+else
+    echo "Installing application"
+    if [ "`uname -s`" = Linux ]; then
+        sudo apt-get install zsh
+    elif [ "`uname -s`" = Darwin ]; then
+        brew install zsh
+    fi
+fi
 
 # Verify
 zsh --version
 
 # Install zplug
-# export ZPLUG_HOME=$HOME/usr/zplug
-mkdir -p $ZPLUG_HOME
-curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 
+if [ ! -e $ZPLUG_HOME ]; then
+    echo "Installing Zplug"
+    mkdir -p $ZPLUG_HOME
+    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+fi
 
 # Set as default shell
 chsh -s $(which zsh)
@@ -27,27 +39,28 @@ chsh -s $(which zsh)
 # Create ZSH config location
 mkdir -p $ZSH_CONFIG_HOME
 
-# Install oh-my-zsh (outdated)
-# sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-# Move oh my zsh to config home
-# mv $HOME/.oh-my-zsh $ZSH_CONFIG_HOME/oh-my-zsh
 
 # Install direnv   https://github.com/direnv/direnv
-if [ "`uname -s`" = Linux ]; then
-    sudo apt-get install direnv
-    sudo apt-get install fzf
-    sudo apt-get install silversearcher-ag
-    sudo apt-get install git
-elif [ "`uname -s`" = Darwin ]; then
-    brew install direnv
-    brew install fzf
-    brew install silversearcher-ag
-    brew install git
+if (`which ag`); then
+    echo "Apps installed"
+else
+    if [ "`uname -s`" = Linux ]; then
+        sudo apt-get install direnv
+        sudo apt-get install fzf
+        sudo apt-get install silversearcher-ag
+        sudo apt-get install git
+    elif [ "`uname -s`" = Darwin ]; then
+        brew install direnv
+        brew install fzf
+        brew install silversearcher-ag
+        brew install git
+    fi
 fi
 
 # Move zshrc
-cp custom/zshrc $HOME/.zshrc
+cp custom/zshrc* $ZSH_CONFIG_HOME/
+
+ln -s $ZSH_CONFIG_HOME/zshrc $HOME/.zshrc
 
 # Move custom elements
 cp -r custom/my-aliases $ZSH_CONFIG_HOME/.oh-my-zsh/custom/plugins

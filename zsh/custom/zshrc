@@ -1,6 +1,13 @@
 ###################################################
 # Starting Environment
 
+# Automatically start tmux on new terminal
+if  [ -n "$AM_TMUX_AUTOSTART" ]; then 
+    if [ -z ${TMUX+x} ]; then 
+        tmux; 
+    fi
+fi
+
 # Sets config folder envvar if it doesn't exist
 if [ -z ${XDG_CONFIG_HOME+x} ]; then 
     export XDG_CONFIG_HOME="$HOME/.config"
@@ -12,7 +19,8 @@ if [ -z ${ZSH_CONFIG_HOME+x} ]; then
 fi
 
 # Create local files if they don't already exist
-if [ -f "$ZSH_CONFIG_HOME/zshrc.env.local" ]; then
+if [ ! -e "$ZSH_CONFIG_HOME/zshrc.env.local" ]; then
+    echo "Creating local files"
     echo "#zshrc.local\n#Add local zshrc content here" > $ZSH_CONFIG_HOME/zshrc.local
     echo "#zshrc.env.local\n#Add local environment vars here" > $ZSH_CONFIG_HOME/zshrc.env.local
     echo "#zshrc.paths.local\n#Add paths to PATH" > $ZSH_CONFIG_HOME/zshrc.paths.local
@@ -44,39 +52,33 @@ if [[ ! -d $ZPLUG_HOME ]]; then
 fi
 
 
-##############################################################
-# Load Plugins
+###############################################################
+## Load Plugins
 
-# Initialize zplug (required)
+## Initialize zplug (required)
 source $ZPLUG_HOME/init.zsh
 
-# Source zplug plugins file 
-source "$ZSH_CONFIG_HOME/zshrc.zplug_plugins"
-source "$ZSH_CONFIG_HOME/zshrc.zplug_plugins.local"
+## Source zplug plugins file 
+source "$ZSH_CONFIG_HOME/zshrc.plugins"
+source "$ZSH_CONFIG_HOME/zshrc.plugins.local"
    
 
-# #############################################################
+## #############################################################
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
-    printf "Install zplug plugins? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    else
-        echo
-    fi
+   printf "Install zplug plugins? [y/N]: "
+   if read -q; then
+       echo; zplug install
+   else
+       echo
+   fi
 fi
-###############################################################
+#################################################################
 
 zplug load --verbose
 
-# Source local zshrc
+## Source local zshrc
 if [ -f "$ZSH_CONFIG_HOME/zshrc.local" ]; then
   source "$ZSH_CONFIG_HOME/zshrc.local"
 fi
 
-# Automatically start tmux on new terminal
-if  [ -z "$AM_TMUX_AUTOSTART" ]
-    if [ "$TMUX" = ""]; then 
-        tmux; 
-    fi
-fi
