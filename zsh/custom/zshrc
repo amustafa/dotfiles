@@ -1,206 +1,59 @@
-# If you come from bash you might have to change your $PATH.
-    # Adds these paths if they are not already there
-PATH_TO_ADD=$HOME/bin:/usr/local/bin
-[[ ":$PATH:" != *":${PATH_TO_ADD}:"* ]] && PATH="${PATH_TO_ADD}:${PATH}"
+###################################################
+# Starting Environment
 
-# Sets config folder
-export XDG_CONFIG_HOME="$HOME/.config"
-export ZSH_CONFIG_HOME="${XDG_CONFIG_HOME}/zsh"
+# Sets config folder envvar if it doesn't exist
+if [ -z ${XDG_CONFIG_HOME+x} ]; then 
+    export XDG_CONFIG_HOME="$HOME/.config"
+fi
 
-# Sets ZPLUG home location (https://github.com/zplug/zplug)
-export ZPLUG_HOME=$HOME/usr/zplug
+# Sets zsh config folder envvar if it doesn't exist
+if [ -z ${ZSH_CONFIG_HOME+x} ]; then 
+    export ZSH_CONFIG_HOME="${XDG_CONFIG_HOME}/zsh"
+fi
 
+# Create local files if they don't already exist
+if [ -f "$ZSH_CONFIG_HOME/zshrc.env.local" ]; then
+    echo "#zshrc.local\n#Add local zshrc content here" > $ZSH_CONFIG_HOME/zshrc.local
+    echo "#zshrc.env.local\n#Add local environment vars here" > $ZSH_CONFIG_HOME/zshrc.env.local
+    echo "#zshrc.paths.local\n#Add paths to PATH" > $ZSH_CONFIG_HOME/zshrc.paths.local
+    echo "#zshrc.plugins.local\n#Add local plugins" > $ZSH_CONFIG_HOME/zshrc.plugins.local
+fi
+
+# Load default system settings
+source "$ZSH_CONFIG_HOME/zshrc.env"
+source "$ZSH_CONFIG_HOME/zshrc.paths"
+source "$ZSH_CONFIG_HOME/zshrc.plugin_settings"
+
+# Source local environment variables
+source "$ZSH_CONFIG_HOME/zshrc.env.local"
+source "$ZSH_CONFIG_HOME/zshrc.paths.local"
+
+
+###################################################
 # Check if zplug is installed
+
 if [[ ! -d $ZPLUG_HOME ]]; then
-    mkdir -p $ZPLUG_HOME
-    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-    source $ZPLUG_HOME/init.zsh && zplug update --self
+    printf "Install zplug in ${ZPLUG_HOME}? [y/N]: "
+    if read -q; then
+        mkdir -p $ZPLUG_HOME
+        curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+        source $ZPLUG_HOME/init.zsh && zplug update --self
+    else:
+        echo "Then do it yourself!"
+    fi
 fi
 
-# Essential
+
+##############################################################
+# Load Plugins
+
+# Initialize zplug (required)
 source $ZPLUG_HOME/init.zsh
 
-# Alias the tmux command for colors
-alias tmux="TERM=screen-256color-bce tmux"
-# Automatically start tmux on new terminal
-#if [ "$TMUX" = "" ]; then tmux; fi
-
-
-# Path to your oh-my-zsh installation.
-# export ZSH=$ZSH_CONFIG_HOME/oh-my-zsh
-
-# Would you like to use another custom folder than $ZSH/custom?
-#ZSH_CUSTOM=$ZSH_CONFIG_HOME/custom
-
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="sonicradish"
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
-
-
-source $ZPLUG_HOME/init.zsh
-#source $ZSH/oh-my-zsh.sh
-
-######## User configuration ##########
-zplug "zplug/zplug", hook-build:"zplug --self-manage"
-
-zplug 'themes/sonicradish', from:oh-my-zsh
-zplug "amustafa/dotfiles", use:"zsh/custom/plugins/my-aliases.plugin.zsh"
-
-# From oh my zsh
-zplug "lib/clipboard", from:oh-my-zsh # if:"[[ $OSTYPE == *darwin* ]]"
-# Load completion library for those sweet [tab] squares
-zplug "lib/completion", from:oh-my-zsh
-zplug "lib/clipboard", from:oh-my-zsh
-zplug "lib/compfix", from:oh-my-zsh
-zplug "lib/completion", from:oh-my-zsh
-zplug "lib/correction", from:oh-my-zsh
-zplug "lib/diagnostics", from:oh-my-zsh
-zplug "lib/directories", from:oh-my-zsh
-zplug "lib/functions", from:oh-my-zsh
-zplug "lib/git", from:oh-my-zsh
-zplug "lib/grep", from:oh-my-zsh
-zplug "lib/history", from:oh-my-zsh
-zplug "lib/key-bindings", from:oh-my-zsh
-zplug "lib/misc", from:oh-my-zsh
-zplug "lib/nvm", from:oh-my-zsh
-zplug "lib/prompt_info_functions", from:oh-my-zsh
-zplug "lib/spectrum", from:oh-my-zsh
-zplug "lib/termsupport", from:oh-my-zsh
-zplug "lib/theme-and-appearance", from:oh-my-zsh
-
-
-zplug "plugin/sudo", from:oh-my-zsh
-zplug "plugin/copybuffer", from:oh-my-zsh
-zplug "plugin/copydir", from:oh-my-zsh
-zplug "plugin/copyfile", from:oh-my-zsh
-zplug "plugin/git", from:oh-my-zsh
-zplug "plugin/github", from:oh-my-zsh
-zplug "plugin/gitignore", from:oh-my-zsh
-zplug "plugin/cp", from:oh-my-zsh
-zplug "plugin/autopep8", from:oh-my-zsh
-zplug "plugin/command-not-found", from:oh-my-zsh
-zplug "plugin/pep8", from:oh-my-zsh
-zplug "plugin/bgnotify", from:oh-my-zsh
-zplug "plugin/extract", from:oh-my-zsh
-zplug "plugin/jsontools", from:oh-my-zsh
-zplug "plugin/vi-mode", from:oh-my-zsh
-zplug "plugin/pip", from:oh-my-zsh
-zplug "plugin/tmux", from:oh-my-zsh
-zplug "plugin/urltools", from:oh-my-zsh
-zplug "plugin/copyfile", from:oh-my-zsh
-zplug "plugin/rsync", from:oh-my-zsh
-zplug "plugin/httpie", from:oh-my-zsh
-zplug "plugin/nmap", from:oh-my-zsh
-zplug "plugin/pylint", from:oh-my-zsh
-zplug "plugin/last-working-dir", from:oh-my-zsh
-zplug "plugin/colorize", from:oh-my-zsh
-zplug "plugin/golang", from:oh-my-zsh
-zplug "plugin/docker", from:oh-my-zsh
-zplug "plugin/node", from:oh-my-zsh
-zplug "plugin/npm", from:oh-my-zsh
-zplug "junegunn/fzf", use:"shell/*.zsh"
-zplug "plugin/fancy-ctrl-z", from:oh-my-zsh
-zplug "plugin/brew", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
-
-# Make sure to use double quotes to prevent shell expansion
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug "supercrabtree/k"    # directory listing with git features
-zplug "zsh-users/zsh-completions"
-zplug "djui/alias-tips"  # help remember aliases
-zplug "b4b4r07/enhancd", use:init.sh  # next gen cd command
-zplug "zsh-users/zsh-apple-touchbar", if:"[[ $OSTYPE == *darwin* ]]"
-zplug "mollifier/zload"  # autoloading functions
-zplug "raylee/tldr", from:github, as:command, use:"tldr"
-zplug "amustafa/dotfiles", use:"zsh/custom/plugin_settings.zsh"
-
-zplug "amustafa/dotfiles", use:"zsh/custom/plugins/{direnv,pyenv,fzf}/*.zsh", defer:2
+# Source zplug plugins file 
+source "$ZSH_CONFIG_HOME/zshrc.zplug_plugins"
+source "$ZSH_CONFIG_HOME/zshrc.zplug_plugins.local"
    
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-
-
-
-######## User configuration ##########
-#############################################
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-export EDITOR='nvim'
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-alias zshconfig="vim ~/.zshrc"
-alias vim="nvim"
-
-# [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
-# eval "$(pyenv init -)"
-
-# Source local zshrc
-if [ -f "$HOME/.zshrc.local" ]; then
-  source "$ZSH_CONFIG_HOME/zshrc.local"
-fi
 
 # #############################################################
 # Install plugins if there are plugins that have not been installed
@@ -216,4 +69,14 @@ fi
 
 zplug load --verbose
 
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Source local zshrc
+if [ -f "$ZSH_CONFIG_HOME/zshrc.local" ]; then
+  source "$ZSH_CONFIG_HOME/zshrc.local"
+fi
+
+# Automatically start tmux on new terminal
+if  [ -z "$AM_TMUX_AUTOSTART" ]
+    if [ "$TMUX" = ""]; then 
+        tmux; 
+    fi
+fi

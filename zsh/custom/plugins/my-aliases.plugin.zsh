@@ -1,7 +1,9 @@
-# Advanced Aliases.
+# Aliases.
 
 alias cat="bat "   # use bat as cat instead of default
-alias zshconfig="vim ~/.zshrc"
+alias vim="nvim"
+alias zshconfig="vim $ZSH_CONFIG_HOME/zshrc"
+alias tmux="TERM=screen-256color-bce tmux"
 
 # ls, the common ones I use a lot shortened for rapid fire usage
 alias l='ls -lFh'     #size,show type,human readable

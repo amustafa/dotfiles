@@ -1,10 +1,11 @@
-################################3
+################################
 # Anaconda
-#   Keep Last so it's libraries are first.
-## IF UBUNTU
-export PATH=$HOME/opt/anaconda3/bin:$PATH
-# export MANPATH="/usr/local/man:$MANPATH"
-#
+
+if [ -z ${AM_ANACONDA_ADD_TO_PATH+x} ]; then 
+    export PATH=$PATH:$HOME/opt/anaconda3/bin
+fi
+
+
 # added by Anaconda3 5.3.0 installer
 # >>> conda init >>>
 # !! Contents within this block are managed by 'conda init' !!

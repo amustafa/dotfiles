@@ -1,0 +1,8 @@
+# If you come from bash you might have to change your $PATH.
+    
+# Adds these paths if they are not already there. Put in order from front to back --> a, b --> a:b
+PATHS_TO_ADD=$HOME/bin
+PATHS_TO_ADD=${PATHS_TO_ADD}:/usr/local/bin
+
+# Add to path if not already there
+[[ ":$PATH:" != *":${PATH_TO_ADD}:"* ]] && PATH="${PATH_TO_ADD}:${PATH}"

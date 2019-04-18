@@ -1,0 +1,15 @@
+# ZPLUG
+export ZPLUG_FILTER="fzf"
+
+#PyEnv
+export PYENV_HOME=$HOME/opt/pyenv
+
+# Enhancd
+export ENHANCD_DOT_ARG=--
+export ENHANCD_HOOK_AFTER_CD=ls
+export ENHANCD_FILTER="fzf"
+
+# My Plugins
+# Anaconda
+# Uncomment to add anaconda to path
+# export AM_ANACONDA_ADD_TO_PATH="true"

@@ -39,6 +39,9 @@ tmux_conf_new_session_prompt=false
 
 # -- display -------------------------------------------------------------------
 
+# move status line to top
+#set -g status-position top
+
 # RGB 24-bit colour support (tmux >= 2.2), possible values are:
 #  - true
 #  - false (default)

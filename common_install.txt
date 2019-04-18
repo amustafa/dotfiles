@@ -1,5 +1,0 @@
-ack
-fzf
-autojump
-bat
-httpie

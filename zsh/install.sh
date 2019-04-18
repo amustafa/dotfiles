@@ -1,6 +1,13 @@
-export XDG_CONFIG_HOME="$HOME/.config"
-export ZSH_CONFIG_HOME="${XDG_CONFIG_HOME}/zsh"
-export ZPLUG_HOME=$HOME/usr/zplug
+# Set default env vars
+if [ -z ${XDG_CONFIG_HOME+x} ]; then  # if var is unset
+    export XDG_CONFIG_HOME="$HOME/.config"
+fi
+
+if [ -z ${ZSH_CONFIG_HOME+x} ]; then
+    export ZSH_CONFIG_HOME="${XDG_CONFIG_HOME}/zsh"
+fi
+
+export ZPLUG_HOME=$HOME/opt/zplug
 
 # Install
 sudo apt-get install zsh
@@ -45,7 +52,7 @@ cp custom/zshrc $HOME/.zshrc
 # Move custom elements
 cp -r custom/my-aliases $ZSH_CONFIG_HOME/.oh-my-zsh/custom/plugins
 #wget https://raw.githubusercontent.com/ggreer/the_silver_searcher/master/_the_silver_searcher
-mv _the_silver_searcher $ZSH_CONFIG_HOME/custom/plugins/the_silver_searcher.plugin.zsh
+#mv _the_silver_searcher $ZSH_CONFIG_HOME/custom/plugins/the_silver_searcher.plugin.zsh
 
 
 source ~/.zshrc
