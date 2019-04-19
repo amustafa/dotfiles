@@ -6,4 +6,6 @@ if (`which pyenv`); then
     eval "$(pyenv virtualenv-init -)"
 else 
     echo "pyenv not installed"
+    echo `which pyenv`
+    echo "pyenv not installed"
 fi
