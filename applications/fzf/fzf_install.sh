@@ -1,14 +1,10 @@
 # Installs fzf into the opt folder
 
 mkdir -p ${HOME}/opt
-FZF_HOME=${HOME}/opt/fzf
+FZF_BASE=${HOME}/opt/fzf
 
-git clone --depth 1 https://github.com/junegunn/fzf.git $FZF_HOME
-$FZF_HOME/install --no-bash --no-fish --no-zsh --64
-
-#mv ${HOME}/.fzf $FZF_HOME
+git clone --depth 1 https://github.com/junegunn/fzf.git $FZF_BASE
+$FZF_BASE/install --no-bash --no-fish --no-zsh --64 --no-update-rc
 
 # Add to user bin
-ln -s $FZF_HOME/bin/fzf ${HOME}/bin
-
-#echo $FZF_HOME >> .zshrc.local
+ln -s $FZF_BASE/bin/fzf ${HOME}/bin

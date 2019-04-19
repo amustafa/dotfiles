@@ -55,7 +55,8 @@ zplug "plugin/golang", from:oh-my-zsh
 zplug "plugin/docker", from:oh-my-zsh
 zplug "plugin/node", from:oh-my-zsh
 zplug "plugin/npm", from:oh-my-zsh
-zplug "junegunn/fzf", use:"shell/*.zsh"
+zplug "plugin/fzf", from:oh-my-zsh
+# zplug "junegunn/fzf", use:"shell/*.zsh"
 zplug "plugin/fancy-ctrl-z", from:oh-my-zsh
 zplug "plugin/brew", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
 
