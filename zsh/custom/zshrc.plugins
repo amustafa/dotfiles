@@ -5,25 +5,27 @@ zplug 'themes/sonicradish', from:oh-my-zsh
 
 # From oh my zsh
 zplug "lib/clipboard", from:oh-my-zsh # if:"[[ $OSTYPE == *darwin* ]]"
+    
 # Load completion library for those sweet [tab] squares
-zplug "lib/completion", from:oh-my-zsh
-zplug "lib/clipboard", from:oh-my-zsh
-zplug "lib/compfix", from:oh-my-zsh
-zplug "lib/completion", from:oh-my-zsh
-zplug "lib/correction", from:oh-my-zsh
-zplug "lib/diagnostics", from:oh-my-zsh
-zplug "lib/directories", from:oh-my-zsh
-zplug "lib/functions", from:oh-my-zsh
-zplug "lib/git", from:oh-my-zsh
-zplug "lib/grep", from:oh-my-zsh
-zplug "lib/history", from:oh-my-zsh
-zplug "lib/key-bindings", from:oh-my-zsh
-zplug "lib/misc", from:oh-my-zsh
-zplug "lib/nvm", from:oh-my-zsh
-zplug "lib/prompt_info_functions", from:oh-my-zsh
-zplug "lib/spectrum", from:oh-my-zsh
-zplug "lib/termsupport", from:oh-my-zsh
-zplug "lib/theme-and-appearance", from:oh-my-zsh
+    zplug "lib/*", from:oh-my-zsh
+# zplug "lib/completion", from:oh-my-zsh
+# zplug "lib/clipboard", from:oh-my-zsh
+# zplug "lib/compfix", from:oh-my-zsh
+# zplug "lib/completion", from:oh-my-zsh
+# zplug "lib/correction", from:oh-my-zsh
+# zplug "lib/diagnostics", from:oh-my-zsh
+# zplug "lib/directories", from:oh-my-zsh
+# zplug "lib/functions", from:oh-my-zsh
+# zplug "lib/git", from:oh-my-zsh
+# zplug "lib/grep", from:oh-my-zsh
+# zplug "lib/history", from:oh-my-zsh
+# zplug "lib/key-bindings", from:oh-my-zsh
+# zplug "lib/misc", from:oh-my-zsh
+# zplug "lib/nvm", from:oh-my-zsh
+# zplug "lib/prompt_info_functions", from:oh-my-zsh
+# zplug "lib/spectrum", from:oh-my-zsh
+# zplug "lib/termsupport", from:oh-my-zsh
+# zplug "lib/theme-and-appearance", from:oh-my-zsh
 
 
 zplug "plugin/sudo", from:oh-my-zsh
@@ -40,7 +42,6 @@ zplug "plugin/pep8", from:oh-my-zsh
 zplug "plugin/bgnotify", from:oh-my-zsh
 zplug "plugin/extract", from:oh-my-zsh
 zplug "plugin/jsontools", from:oh-my-zsh
-zplug "plugin/vi-mode", from:oh-my-zsh, defer:1
 zplug "plugin/pip", from:oh-my-zsh
 zplug "plugin/tmux", from:oh-my-zsh
 zplug "plugin/urltools", from:oh-my-zsh
@@ -55,12 +56,14 @@ zplug "plugin/golang", from:oh-my-zsh
 zplug "plugin/docker", from:oh-my-zsh
 zplug "plugin/node", from:oh-my-zsh
 zplug "plugin/npm", from:oh-my-zsh
-zplug "plugin/fzf", from:oh-my-zsh
-# zplug "junegunn/fzf", use:"shell/*.zsh"
 zplug "plugin/fancy-ctrl-z", from:oh-my-zsh
 zplug "plugin/brew", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+zplug "plugin/vi-mode", from:oh-my-zsh, defer:1
 
 # Make sure to use double quotes to prevent shell expansion
+zplug "junegunn/fzf", use:"shell/*.zsh", defer:1
+zplug "plugin/fzf", from:oh-my-zsh, defer:1
+
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "supercrabtree/k"    # directory listing with git features
 zplug "djui/alias-tips"  # help remember aliases
@@ -69,8 +72,9 @@ zplug "zsh-users/zsh-apple-touchbar", if:"[[ $OSTYPE == *darwin* ]]"
 zplug "mollifier/zload"  # autoloading functions
 # zplug "raylee/tldr", from:github, as:command, use:"tldr"
 zplug "amustafa/dotfiles", use:"zsh/custom/plugin_settings.zsh"
+zplug "amustafa/dotfiles", use:"zsh/custom/plugins_pre_comp_init/*.zsh", defer:1
 
-# zplug "amustafa/dotfiles", use:"zsh/custom/plugins/my-aliases.plugin.zsh"
-zplug "zsh-users/zsh-completions", defer:1
-zplug "amustafa/dotfiles", use:"zsh/custom/plugins_pre_comp_init/*.zsh"
-zplug "amustafa/dotfiles", use:"zsh/custom/plugins/*.zsh", defer:1
+zplug "zsh-users/zsh-completions", defer:2
+zplug "amustafa/dotfiles", use:"zsh/custom/plugins/*.zsh", defer:3
+
+echo "Loaded plugins"
