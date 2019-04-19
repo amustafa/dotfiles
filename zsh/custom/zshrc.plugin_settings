@@ -2,7 +2,11 @@
 export ZPLUG_FILTER="fzf"
 
 #PyEnv
-export PYENV_HOME=$HOME/opt/pyenv
+if [ -e $HOME/opt/pyenv ]; then
+   export PYENV_HOME=$HOME/opt/pyenv
+else
+    export PYENV_HOME="/opt/local/bin/pyenv"
+fi
 
 # Enhancd
 export ENHANCD_DOT_ARG=--
