@@ -46,9 +46,10 @@ echo "Copying config files"
 cp tmux/* $AM_TMUX_CONFIG_HOME
 
 # link to expected location
-if [ ! -e  $HOME/.tmux.conf ]; then
-    echo "Linking .tmux.conf to home"
-    ln -s $AM_TMUX_CONFIG_HOME/tmux.conf $HOME/.tmux.conf
-else
-    echo ".tmux already exists, replace manually"
+if [ -e  $HOME/.tmux.conf ]; then
+    echo ".tmux already exists, moving to .tmux.conf.old"
+    mv $HOME/.tmux.conf $HOME/.tmux.conf.old
+
 fi
+echo "Linking .tmux.conf to home"
+ln -s $AM_TMUX_CONFIG_HOME/tmux.conf $HOME/.tmux.conf
