@@ -69,7 +69,7 @@ zplug "zsh-users/zsh-apple-touchbar", if:"[[ $OSTYPE == *darwin* ]]"
 zplug "mollifier/zload"  # autoloading functions
 # zplug "raylee/tldr", from:github, as:command, use:"tldr"
 zplug "amustafa/dotfiles", use:"zsh/custom/plugin_settings.zsh"
+zplug "amustafa/dotfiles", use:"zsh/custom/plugins_pre_comp_init/*.zsh"
 
-zplug "amustafa/dotfiles", use:"zsh/custom/plugins/my-aliases.plugin.zsh", defer: 1
 zplug "zsh-users/zsh-completions", defer:1
-zplug "amustafa/dotfiles", use:"zsh/custom/plugins/*.zsh", defer:1
+zplug "amustafa/dotfiles", use:"zsh/custom/plugins_post_comp_init/*.zsh", defer:1
