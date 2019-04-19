@@ -5,4 +5,4 @@ PATHS_TO_ADD=$HOME/bin
 PATHS_TO_ADD=${PATHS_TO_ADD}:/usr/local/bin
 
 # Add to path if not already there
-[[ ":$PATH:" != *":${PATH_TO_ADD}:"* ]] && PATH="${PATH_TO_ADD}:${PATH}"
+[[ ":$PATH:" != *":${PATHS_TO_ADD}:"* ]] && PATH="${PATHS_TO_ADD}:${PATH}"
