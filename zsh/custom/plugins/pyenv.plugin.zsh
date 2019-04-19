@@ -1,4 +1,9 @@
 # PyEnv plug
 
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+if (`which pyenv`); then
+    echo 'pyenv installed'
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+else 
+    echo "pyenv not installed"
+fi
