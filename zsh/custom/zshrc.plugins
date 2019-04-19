@@ -2,7 +2,6 @@
 
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
 zplug 'themes/sonicradish', from:oh-my-zsh
-zplug "amustafa/dotfiles", use:"zsh/custom/plugins/my-aliases.plugin.zsh"
 
 # From oh my zsh
 zplug "lib/clipboard", from:oh-my-zsh # if:"[[ $OSTYPE == *darwin* ]]"
@@ -70,5 +69,6 @@ zplug "mollifier/zload"  # autoloading functions
 # zplug "raylee/tldr", from:github, as:command, use:"tldr"
 zplug "amustafa/dotfiles", use:"zsh/custom/plugin_settings.zsh"
 
+zplug "amustafa/dotfiles", use:"zsh/custom/plugins/my-aliases.plugin.zsh", defer: 1
 zplug "zsh-users/zsh-completions", defer:1
 zplug "amustafa/dotfiles", use:"zsh/custom/plugins/*.zsh", defer:1
