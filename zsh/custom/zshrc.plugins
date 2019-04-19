@@ -71,5 +71,4 @@ zplug "mollifier/zload"  # autoloading functions
 zplug "amustafa/dotfiles", use:"zsh/custom/plugin_settings.zsh"
 
 zplug "zsh-users/zsh-completions", defer:1
-
-zplug "amustafa/dotfiles", use:"zsh/custom/plugins/*.zsh", defer:2
+zplug "amustafa/dotfiles", use:"zsh/custom/plugins/*.zsh", defer:1
