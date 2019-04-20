@@ -3,10 +3,10 @@ brew install the_silver_searcher
 brew install pcre
 brew install coreutils
 brew install ack
-brew install fzf
 brew install autojump
 brew install bat
 brew install httpie
+brew install fd
 
 echo "Need to get application packages for:"
 echo "iterm"

@@ -36,15 +36,20 @@ else
 fi
 
 # Set as default shell
-chsh -s $(which zsh)
+echo $ZSH_NAME
+if [ -z ${ZSH_NAME+x} ]; then
+    chsh -s $(which zsh)
+else
+    echo "Zsh is already current shell"
+fi
 
 # Create ZSH config location
 mkdir -p $ZSH_CONFIG_HOME
 
 
 # Install direnv   https://github.com/direnv/direnv
-if (`which ag`); then
-    echo "Apps installed"
+if (command -v ag); then
+    echo "Apps already installed"
 else
     if [ "`uname -s`" = Linux ]; then
         sudo apt-get install direnv
@@ -54,17 +59,26 @@ else
     elif [ "`uname -s`" = Darwin ]; then
         brew install direnv
         brew install fzf
-        brew install silversearcher-ag
+        brew install the_silver_searcher
         brew install git
     fi
 fi
 
 # Move zshrc
-cp custom/zshrc* $ZSH_CONFIG_HOME/
+if [ ! -e $ZSH_CONFIG_HOME]; then
+    cp custom/zshrc* $ZSH_CONFIG_HOME/
+else
+    echo "Files already there, update manually"
+fi
 
-ln -s $ZSH_CONFIG_HOME/zshrc $HOME/.zshrc
+if [ ! -e $HOME/.zshrc ]; then
+    ln -s $ZSH_CONFIG_HOME/zshrc $HOME/.zshrc
+else
+    echo ".zshrc is already there, update manually"
+fi
 
-source ~/.zshrc
+
+
 
 
 

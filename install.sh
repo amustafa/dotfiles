@@ -21,11 +21,12 @@ else
     ./programming/python/install_python.sh
 fi
 
-if [[ "`python --version`" == "Python 3"* ]]; then
-    python installer.py
-else
-    echo "Wrong Version of Python"
-fi
+zsh zsh/install.sh
+
+zsh tmux/install.sh
+echo "UPDATE ZSHRC"
+
+
 
 
 

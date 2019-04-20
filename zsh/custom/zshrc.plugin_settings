@@ -9,11 +9,25 @@ else
 fi
 
 # Enhancd
-export ENHANCD_DOT_ARG=--
-export ENHANCD_HOOK_AFTER_CD=ls
+# This set cd to full history search, 
+# cd ., cd .., cd - to regular behavior, 
+#   and cd -., cd -, cd -- to interactive behavior
+export ENHANCD_DIR=$HOME/opt/enhanced
+export ENHANCD_DOT_ARG=-.
+export ENHANCD_HYPHEN_ARG=--
 export ENHANCD_FILTER="fzf"
+export ENHANCD_HYPHEN_NUM=20
+export ENHANCD_HOOK_AFTER_CD="ls"
+# export ENHANCD_COMMAND=cd
+# export ENHANCD_DOT_SHOW_FULLPATH=0
+# export ENHANCD_DISABLE_DOT=0
+# export ENHANCD_DISABLE_HYPHEN=0
+# export ENHANCD_DISABLE_HOME=0
+# export ENHANCD_HOME_ARG=""
+# export ENHANCD_USE_FUZZY_MATCH
 
 # My Plugins
+
 # Anaconda
 # Uncomment to add anaconda to path
 # export AM_ANACONDA_ADD_TO_PATH="true"

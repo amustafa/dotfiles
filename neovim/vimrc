@@ -3,7 +3,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 if has('nvim')
-    let s:editor_root=expand("~/.nvim")
+    let s:editor_root=expand("$NVIM_CONFIG_HOME")
 else
     let s:editor_root=expand("~/.vim")
 endif
