@@ -48,7 +48,6 @@ zplug "plugins/httpie", from:oh-my-zsh
 zplug "plugins/nmap", from:oh-my-zsh
 # zplug "plugins/battery", from:oh-my-zsh, defer:1
 zplug "plugins/pylint", from:oh-my-zsh
-# zplug "plugins/last-working-dir", from:oh-my-zsh
 zplug "plugins/colorize", from:oh-my-zsh
 zplug "plugins/golang", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
@@ -56,25 +55,21 @@ zplug "plugins/node", from:oh-my-zsh
 zplug "plugins/npm", from:oh-my-zsh
 zplug "plugins/fancy-ctrl-z", from:oh-my-zsh
 zplug "plugins/brew", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+zplug "plugins/vi-mode", from:oh-my-zsh
 
 
 zplug "zsh-users/zsh-completions"
-zplug "plugin/vi-mode", from:oh-my-zsh, defer:1
 zplug "morgant/tools-osx", \
     as:command, \
     rename-to:trash, \
     use:"src/trash", if:"[[ $OSTYPE == *darwin* ]]"
 
-# Completion to ag
-#zplug "ggreer/the_silver_searcher", use:"_the_silver_searcher", depth:1
-
 # Make sure to use double quotes to prevent shell expansion
 zplug "junegunn/fzf", use:"shell/*.zsh", defer:1
-#zplug "plugin/fzf", from:oh-my-zsh, defer:2
 
 zplug "supercrabtree/k"    # directory listing with git features
 zplug "djui/alias-tips"  # help remember aliases
-zslug "b4b4r07/enhancd", use:init.sh  # next gen cd command
+zplug "b4b4r07/enhancd", use:init.sh  # next gen cd command
 # zplug "zsh-users/zsh-apple-touchbar", if:"[[ $OSTYPE == *darwin* ]]"
 zplug "mollifier/zload"  # autoloading functions
 # zplug "raylee/tldr", from:github, as:command, use:"tldr"
