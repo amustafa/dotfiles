@@ -70,15 +70,15 @@ zplug "junegunn/fzf", use:"shell/*.zsh", defer:1
 zplug "supercrabtree/k"    # directory listing with git features
 zplug "djui/alias-tips"  # help remember aliases
 zplug "b4b4r07/enhancd", use:init.sh  # next gen cd command
-# zplug "zsh-users/zsh-apple-touchbar", if:"[[ $OSTYPE == *darwin* ]]"
 zplug "mollifier/zload"  # autoloading functions
-# zplug "raylee/tldr", from:github, as:command, use:"tldr"
 zplug "amustafa/dotfiles", use:"zsh/custom/plugin_settings.zsh"
 zplug "amustafa/dotfiles", use:"zsh/custom/plugins_pre_comp_init/*.zsh", defer:1
 
+# zplug "raylee/tldr", from:github, as:command, use:"tldr"
+# zplug "zsh-users/zsh-apple-touchbar", if:"[[ $OSTYPE == *darwin* ]]"
 # https://github.com/zsh-users/zsh-syntax-highlighting
 # zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zdharma/fast-syntax-highlighting", defer:2
 zplug "amustafa/dotfiles", use:"zsh/custom/plugins/*.zsh", defer:3
 
-echo "Loaded plugins"
+echo "Plugins Loaded."
