@@ -21,10 +21,10 @@ fi
 # Create local files if they don't already exist
 if [ ! -e "$ZSH_CONFIG_HOME/zshrc.env.local" ]; then
     echo "Creating local files"
-    echo "#zshrc.local\n#Add local zshrc content here" > $ZSH_CONFIG_HOME/zshrc.local
-    echo "#zshrc.env.local\n#Add local environment vars here" > $ZSH_CONFIG_HOME/zshrc.env.local
-    echo "#zshrc.paths.local\n#Add paths to PATH" > $ZSH_CONFIG_HOME/zshrc.paths.local
-    echo "#zshrc.plugins.local\n#Add local plugins" > $ZSH_CONFIG_HOME/zshrc.plugins.local
+    echo "# zshrc.local\n# Add local zshrc content here" > $ZSH_CONFIG_HOME/zshrc.local
+    echo "# zshrc.env.local\n# Add local environment vars here" > $ZSH_CONFIG_HOME/zshrc.env.local
+    echo "# zshrc.paths.local\n# Add paths to PATH" > $ZSH_CONFIG_HOME/zshrc.paths.local
+    echo "# zshrc.plugins.local\n# Add local plugins" > $ZSH_CONFIG_HOME/zshrc.plugins.local
 fi
 
 # Load default system settings
@@ -76,8 +76,8 @@ if ! zplug check --verbose; then
 fi
 #################################################################
 
-zplug load --verbose
-# clear
+zplug load #--verbose
+clear
 
 ## Source local zshrc
 if [ -f "$ZSH_CONFIG_HOME/zshrc.local" ]; then
