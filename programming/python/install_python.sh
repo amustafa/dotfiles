@@ -13,17 +13,19 @@ elif [ "`uname -s`" = Darwin ]; then
     DEPS_INSTALLED=TRUE
 fi
 
+export PYENV_ROOT=$HOME/opt/pyenv
+
 if [ $DEPS_INSTALLED = "TRUE" ]; then
     # https://github.com/pyenv/pyenv-installer
     curl https://pyenv.run | bash
 
-    export PATH="${HOME}/.pyenv/bin:$PATH"
+    export PATH="${PYENV_ROOT}/bin:$PATH"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 
     pyenv install 3.7.3
     pyenv global 3.7.3
-else; then
+else
     echo "DEPS NOT INSTALLED"
 fi
 

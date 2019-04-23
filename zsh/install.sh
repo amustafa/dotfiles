@@ -65,7 +65,7 @@ else
 fi
 
 # Move zshrc
-if [ ! -e $ZSH_CONFIG_HOME]; then
+if [ ! -e $ZSH_CONFIG_HOME ]; then
     cp custom/zshrc* $ZSH_CONFIG_HOME/
 else
     echo "Files already there, update manually"

@@ -12,7 +12,7 @@ fi
 # This set cd to full history search, 
 # cd ., cd .., cd - to regular behavior, 
 #   and cd -., cd -, cd -- to interactive behavior
-export ENHANCD_DIR=$HOME/opt/enhanced
+export ENHANCD_DIR=$HOME/opt/enhancd
 export ENHANCD_DOT_ARG=-.
 export ENHANCD_HYPHEN_ARG=--
 export ENHANCD_FILTER="fzf"
