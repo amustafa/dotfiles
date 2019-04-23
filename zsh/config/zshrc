@@ -25,6 +25,7 @@ if [ ! -e "$ZSH_CONFIG_HOME/zshrc.env.local" ]; then
     echo "# zshrc.env.local\n# Add local environment vars here" > $ZSH_CONFIG_HOME/zshrc.env.local
     echo "# zshrc.paths.local\n# Add paths to PATH" > $ZSH_CONFIG_HOME/zshrc.paths.local
     echo "# zshrc.plugins.local\n# Add local plugins" > $ZSH_CONFIG_HOME/zshrc.plugins.local
+    echo "# zshrc.plugins_settings.local\n# Add local plugins" > $ZSH_CONFIG_HOME/zshrc.plugins_settings.local
 fi
 
 # Load default system settings
