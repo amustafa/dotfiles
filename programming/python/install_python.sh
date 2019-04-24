@@ -10,6 +10,7 @@ if [ "`uname -s`" = Linux ]; then
     DEPS_INSTALLED=TRUE
 elif [ "`uname -s`" = Darwin ]; then
     brew install readline xz
+    # sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /
     DEPS_INSTALLED=TRUE
 fi
 
@@ -23,8 +24,13 @@ if [ $DEPS_INSTALLED = "TRUE" ]; then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 
-    pyenv install 3.7.3
-    pyenv global 3.7.3
+    if [ "`uname -s`" = Linux ]; then
+        pyenv install 3.7.3
+        pyenv global 3.7.3
+    else
+        pyenv install 3.7.2
+        pyenv global 3.7.2
+    then
 else
     echo "DEPS NOT INSTALLED"
 fi

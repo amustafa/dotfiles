@@ -77,7 +77,8 @@ if ! zplug check --verbose; then
 fi
 #################################################################
 
-zplug load #--verbose
+echo "Loading Zplug"
+zplug load --verbose
 clear
 
 ## Source local zshrc
