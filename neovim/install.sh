@@ -29,6 +29,8 @@ sh $NVIM_CONFIG_HOME/vim_runtime/install_awesome_vimrc.sh
 # Install vim.plug
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# Install vundle
 # git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 cp my_plugins_config.vim $NVIM_CONFIG_HOME/vim_runtime
