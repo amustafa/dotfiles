@@ -1,3 +1,3 @@
-function git_diff_wrapper{
+function git_diff_wrapper {
     vimdiff "$2" "$5"
 }
