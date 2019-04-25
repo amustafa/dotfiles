@@ -10,6 +10,7 @@ pip install jedi
 
 NVIM_APP_DIR=${HOME}/opt
 NVIM_CONFIG_HOME=${HOME}/.config/nvim
+NVIM_DATA_DIR=${HOME}/.local
 
 if [ -e nvim.appimage ]; then
     mkdir -p $NVIM_APP_DIR/nvim/bin
@@ -23,17 +24,9 @@ if [ -e nvim.appimage ]; then
 #     ln -s $NVIM_APP_DIR/nvim/bin/nvim $HOME/bin
 fi
 
-git clone --depth=1 https://github.com/amix/vimrc.git $NVIM_CONFIG_HOME/vim_runtime
-sh $NVIM_CONFIG_HOME/vim_runtime/install_awesome_vimrc.sh
-
 # Install vim.plug
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-# Install vundle
-# git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
-cp my_plugins_config.vim $NVIM_CONFIG_HOME/vim_runtime
-cp my_configs.vim $NVIM_CONFIG_HOME/vim_runtime
-cp -r my_plugins.vim $NVIM_CONFIG_HOME/vim_runtime
-cp init.vim $NVIM_CONFIG_HOME
+ln -s `pwd`/vimrcs $NVIM_CONFIG_HOME/vimrcs
+ln -s `pwd`/init.vim $NVIM_CONFIG_HOME/init.vim
