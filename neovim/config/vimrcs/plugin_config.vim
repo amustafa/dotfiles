@@ -214,11 +214,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vim-snippets (snippet collection)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-ActivateAddons vim-snippets ultisnips
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Commentary (comment stuff out)

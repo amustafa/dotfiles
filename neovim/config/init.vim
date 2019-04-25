@@ -90,9 +90,9 @@ source ~/.config/nvim/vimrcs/filetypes.local.vim
 catch
 endtry
 
-source ~/.config/nvim/vimrcs/plugins_config.vim
+source ~/.config/nvim/vimrcs/plugin_config.vim
 try
-source ~/.config/nvim/vimrcs/plugins_config.local.vim
+source ~/.config/nvim/vimrcs/plugin_config.local.vim
 catch
 endtry
 
