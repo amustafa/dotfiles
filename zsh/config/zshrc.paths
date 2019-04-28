@@ -2,7 +2,13 @@
     
 # Adds these paths if they are not already there. Put in order from front to back --> a, b --> a:b
 PATHS_TO_ADD=$HOME/bin
+
+if [ -d $CARGO_ROOT ]; then
+    PATHS_TO_ADD=${PATHS_TO_ADD}:$CARGO_ROOT/bin
+fi
+
 PATHS_TO_ADD=${PATHS_TO_ADD}:/usr/local/bin
 
 # Add to path if not already there
 [[ ":$PATH:" != *":${PATHS_TO_ADD}:"* ]] && PATH="${PATHS_TO_ADD}:${PATH}"
+

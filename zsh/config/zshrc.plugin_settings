@@ -1,11 +1,28 @@
+###############################
 # ZPLUG
 export ZPLUG_FILTER="fzf"
 
+###############################
+# Geometry  (https://github.com/geometry-zsh/geometry)
+GEOMETRY_PROMPT_PLUGINS=(host_info exec_time git)
+GEOMETRY_SYMBOL_PROMPT="➜" # "▲"                  # default prompt symbol
+# GEOMETRY_SYMBOL_RPROMPT="◇"                 # multiline prompts
+# GEOMETRY_SYMBOL_EXIT_VALUE="△"              # displayed when exit value is != 0
+# GEOMETRY_SYMBOL_ROOT="▲"                    # when logged in user is root
+GEOMETRY_COLOR_EXIT_VALUE="red"         # prompt symbol color when exit value is != 0
+GEOMETRY_COLOR_PROMPT="172"               # prompt symbol color
+GEOMETRY_COLOR_ROOT="magenta"                   # root prompt symbol color
+GEOMETRY_COLOR_DIR="111"                   # current directory color
+# GEOMETRY_PROMPT_PREFIX="$'\n'"              # prefix prompt with a new line
+# GEOMETRY_PROMPT_SUFFIX=""                   # suffix prompt
+# GEOMETRY_PROMPT_PREFIX_SPACER=" "           # string to place between prefix and symbol
+# GEOMETRY_SYMBOL_SPACER=" "                  # string to place between symbol and directory
+# GEOMETRY_DIR_SPACER=" "                     # string to place between directory and suffix
+# GEOMETRY_PLUGIN_SEPARATOR=" "               # use ' ' to separate right prompt parts
+GEOMETRY_GREP="ag"                            # define which grep-like tool to use (By default it looks for rg, ag and finally grep)
 
+###############################
 # Enhancd
-# This set cd to full history search, 
-# cd ., cd .., cd - to regular behavior, 
-#   and cd -., cd -, cd -- to interactive behavior
 export ENHANCD_DIR=$HOME/opt/enhancd
 export ENHANCD_DOT_ARG=-.
 export ENHANCD_HYPHEN_ARG=--
@@ -22,6 +39,7 @@ export ENHANCD_HOOK_AFTER_CD="ls"
 
 # My Plugins
 
+###############################
 # Anaconda
 # Uncomment to add anaconda to path
 # export AM_ANACONDA_ADD_TO_PATH="true"

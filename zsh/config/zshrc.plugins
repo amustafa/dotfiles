@@ -57,7 +57,8 @@ zplug "plugins/npm", from:oh-my-zsh
 zplug "plugins/fancy-ctrl-z", from:oh-my-zsh
 zplug "plugins/brew", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
 zplug "plugins/vi-mode", from:oh-my-zsh
-
+# zplug "laurenkt/zsh-vimto"
+zplug "so-fancy/diff-so-fancy", use:"third_party/build_fatpack/diff-so-fancy", as:command
 
 zplug "zsh-users/zsh-completions"
 zplug "morgant/tools-osx", \
@@ -67,6 +68,8 @@ zplug "morgant/tools-osx", \
 
 # Make sure to use double quotes to prevent shell expansion
 zplug "junegunn/fzf", use:"shell/*.zsh", defer:1
+zplug "hschne/fzf-git", defer:1
+zplug 'wfxr/forgit', defer:1
 
 zplug "supercrabtree/k"    # directory listing with git features
 zplug "djui/alias-tips"  # help remember aliases

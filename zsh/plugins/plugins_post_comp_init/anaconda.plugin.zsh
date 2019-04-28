@@ -1,8 +1,11 @@
 ################################
 # Anaconda
 
-if [ -z ${AM_ANACONDA_ADD_TO_PATH+x} ]; then 
-    export PATH=$PATH:$HOME/opt/anaconda3/bin
+
+if [ -d $ANACONDA_ROOT ]; then
+    if [ -z ${AM_ANACONDA_ADD_TO_PATH+x} ]; then 
+        export PATH=$PATH:$HOME/opt/anaconda3/bin
+    fi
 fi
 
 

@@ -6,15 +6,25 @@ alias zshconfig="vim $ZSH_CONFIG_HOME/zshrc"
 alias tmux="TERM=screen-256color-bce tmux"
 
 # ls, the common ones I use a lot shortened for rapid fire usage
-alias l='ls -lFh'     #size,show type,human readable
-alias la='ls -lAFh'   #long list,show almost all,show type,human readable
-alias lr='ls -tRFh'   #sorted by date,recursive,show type,human readable
-alias lt='ls -ltFh'   #long list,sorted by date,show type,human readable
-alias ll='ls -l'      #long list
-alias ldot='ls -ld .*'
-alias lS='ls -1FSsh'
-alias lart='ls -1Fcart'
-alias lrt='ls -1Fcrt'
+# alias l='ls -lFh'     #size,show type,human readable
+# alias la='ls -lAFh'   #long list,show almost all,show type,human readable
+# alias lr='ls -tRFh'   #sorted by date,recursive,show type,human readable
+# alias lt='ls -ltFh'   #long list,sorted by date,show type,human readable
+# alias ll='ls -l'      #long list
+# alias ldot='ls -ld .*'
+# alias lS='ls -1FSsh'
+# alias lart='ls -1Fcart'
+# alias lrt='ls -1Fcrt'
+
+alias l='exa -lFgh'                   # list, size, show type
+alias ll='exa -lBFg'                  # long list
+alias lll='exa -lBhgUm@'              # long long list
+alias la='exa -lFag'                  # long list, show almost all, show type and hidden
+alias lt='exa -lFg --sort=modified'   # list, sorted by modified date, recursive, show type and hidden
+alias lr='exa -RFga --sort=modified'   # list, sorted by modified date, recursive, show type and hidden
+alias ldot='exa -ld .*'
+alias lm='exa -lBdFa --sort=modified' # long list, no recursion, sorted by modified date, show type and hidden
+alias lS='exa -1'			          # one list
 
 alias grep='grep --color'
 alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} ' # recursive line number with filename print 5 lines
@@ -92,4 +102,5 @@ alias -s ace="unace l"
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 
 
-
+# Python
+alias pip="python -m pip"
