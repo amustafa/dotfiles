@@ -22,15 +22,22 @@ if [ $DEPS_INSTALLED = "TRUE" ]; then
 
     export PATH="${PYENV_ROOT}/bin:$PATH"
     eval "$(pyenv init -)"
+    git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
     eval "$(pyenv virtualenv-init -)"
 
     if [ "`uname -s`" = Linux ]; then
         pyenv install 3.7.3
         pyenv global 3.7.3
+        # Instal pyenv virtual env
+        pyenv virtualenv 3.7.3 nvim
     else
         pyenv install 3.7.2
         pyenv global 3.7.2
+        # Instal pyenv virtual env
+        pyenv virtualenv 3.7.2 nvim
     then
+
+
 else
     echo "DEPS NOT INSTALLED"
 fi

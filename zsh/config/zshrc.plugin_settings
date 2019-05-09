@@ -2,6 +2,8 @@
 # ZPLUG
 export ZPLUG_FILTER="fzf"
 
+
+
 ###############################
 # Geometry  (https://github.com/geometry-zsh/geometry)
 GEOMETRY_PROMPT_PLUGINS=(host_info exec_time git)
@@ -43,3 +45,10 @@ export ENHANCD_HOOK_AFTER_CD="ls"
 # Anaconda
 # Uncomment to add anaconda to path
 # export AM_ANACONDA_ADD_TO_PATH="true"
+
+
+###############################
+# Powerline
+POWERLEVEL9K_MODE='nerdfont-complete'
+
+DEFAULT_USER='adam.mustafa'
