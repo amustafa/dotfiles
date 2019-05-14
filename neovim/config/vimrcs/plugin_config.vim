@@ -105,15 +105,11 @@ au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
 " => lightline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ }
-
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'powerline',
       \ 'active': {
       \   'left': [ ['mode', 'paste'],
       \             ['fugitive', 'readonly', 'filename', 'modified'] ],
-      \   'right': [ [ 'lineinfo' ], ['percent'] ]
+      \   'right': [ [ 'lineinfo' ], [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ] ]
       \ },
       \ 'component': {
       \   'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
@@ -143,8 +139,10 @@ let g:lightline.component_type = {
       \     'linter_ok': 'left',
       \ }
 
-let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
-
+let g:lightline#ale#indicator_checking = "\ue206"
+let g:lightline#ale#indicator_warnings = "\uf071  "
+let g:lightline#ale#indicator_errors = "\uf05e  "
+let g:lightline#ale#indicator_ok = "\uf00c  "
 
 " g:lightline#ale#indicator_checking
 " The indicator to use when ALE is in progress. Default is Linting....
@@ -178,7 +176,7 @@ let g:go_fmt_command = "goimports"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_linters = {
 \   'javascript': ['jshint'],
-\   'python': ['pylint', 'mypy'],
+\   'python': ['pylint'],
 \   'go': ['go', 'golint', 'errcheck']
 \}
 
@@ -194,7 +192,9 @@ let g:ale_sign_column_always = 1 " keeps sign gutter open
 " Put this in vimrc or a plugin file of your own.
 " After this is configured, :ALEFix will try and fix your JS code with ESLint.
 let g:ale_fixers = {
+\ '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['yapf'],
+\   'javascript': ['eslint'],
 \}
 
 " Set this setting in vimrc if you want to fix files automatically on save.

@@ -18,7 +18,7 @@ Plug 'tpope/vim-obsession', { 'on': 'Obsess' } " keeps sessions updated once sta
 " Plug 'xolox/vim-session'
 Plug 'xolox/vim-misc'
 Plug 'flazz/vim-colorschemes'
-Plug 'tmhedberg/SimpylFold'
+Plug 'tmhedberg/SimpylFold', { 'for': 'py' }
 Plug 'mileszs/ack.vim' " fast search (settings change to ag)
 
 " snippet manager and snippets
@@ -26,6 +26,7 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 Plug 'jlanzarotta/bufexplorer'
 Plug 'xolox/vim-colorscheme-switcher'
+Plug 'mtth/scratch.vim'
 
 Plug 'amix/open_file_under_cursor.vim'
 " Plug 'zenbro/mirror.vim' " Mirror files on remote server
@@ -41,10 +42,13 @@ Plug 'tpope/vim-repeat'  " allows some plugins actions to repeat with .
 Plug 'terryma/vim-multiple-cursors'  "sublime-like cursor behavior
 Plug 'michaeljsmith/vim-indent-object' 
 Plug 'airblade/vim-gitgutter'
+Plug 'easymotion/vim-easymotion'
 Plug 'gu-fan/riv.vim', { 'for': 'rst' }
 Plug 'gu-fan/InstantRst', { 'on': 'InstantRst', 'for': 'rst' }
 " Plug 'tpope/vim-eunuch' " Adds unix commands like delete and mv
 Plug 'lervag/vimtex', { 'for': 'tex' }  " latex edit and compile
+Plug 'ryanoasis/vim-devicons'
+Plug 'metakirby5/codi.vim'
 
 Plug 'w0rp/ale'
 "Plug 'neomake/neomake'
@@ -61,17 +65,21 @@ Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
 " Plug 'bfredl/nvim-ipy'
 " Plug 'hkupty/iron.nvim'
+" Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 
 " Language Specific formatters and syntax highlighters
 Plug 'google/yapf', { 'for': 'py' }
 Plug 'ambv/black', { 'for': 'py' }
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
+Plug 'moll/vim-node', { 'for': 'js' }
 Plug 'chr4/nginx.vim'
 Plug 'tomlion/vim-solidity', { 'for': 'sol' }
 Plug 'groenewege/vim-less', { 'for': 'less' }  " syntax for less
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'nvie/vim-flake8', { 'for': 'py' }
 Plug 'plasticboy/vim-markdown', { 'for': 'md' }  " must have tabular before this. Style for Markdown
+Plug 'elzr/vim-json', { 'for': 'json' }  
+Plug 'rhysd/vim-fixjson', { 'for': 'json' }
 
 call plug#end()  " Initialize plugin system
 

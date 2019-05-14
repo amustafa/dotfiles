@@ -46,6 +46,35 @@ function! JavaScriptFold()
     setl foldtext=FoldText()
 endfunction
 
+""""""""""""""""""""""""""""""
+" => Nodejs  section
+"""""""""""""""""""""""""""""""
+autocmd User Node if &filetype == "javascript" | setlocal expandtab | endif
+
+
+""""""""""""""""""""""""""""""
+" => JSON section
+"""""""""""""""""""""""""""""""
+au FileType json call JSONFold()
+au FileType json setl fen
+au FileType json setl nocindent
+
+au FileType json imap <c-t> $log();<esc>hi
+au FileType json imap <c-a> alert();<esc>hi
+
+au FileType json inoremap <buffer> $r return 
+au FileType json inoremap <buffer> $f // --- PH<esc>FP2xi
+
+function! JSONFold() 
+    setl foldmethod=syntax
+    setl foldlevelstart=1
+    syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
+
+    function! FoldText()
+        return substitute(getline(v:foldstart), '{.*', '{...}', '')
+    endfunction
+    setl foldtext=FoldText()
+endfunction
 
 """"""""""""""""""""""""""""""
 " => CoffeeScript section

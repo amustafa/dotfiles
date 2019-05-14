@@ -86,3 +86,5 @@ if [ -f "$ZSH_CONFIG_HOME/zshrc.local" ]; then
   source "$ZSH_CONFIG_HOME/zshrc.local"
 fi
 
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

@@ -4,6 +4,9 @@
 " Sets how many lines of history VIM has to remember
 set history=500
 
+" Python
+let g:python3_host_prog = $NVIM_PYTHON_VENV
+
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
@@ -55,6 +58,9 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Allow mouse interactions
+set mouse=a
+
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
@@ -126,6 +132,8 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
+" Set Jenkinsfile as a groovy file
+au BufNewFile,BufRead Jenkinsfile setf groovy
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -240,17 +248,22 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 map 0 ^
 
 " Move a line of text using ALT+[jk] or Command+[jk] on mac TODO Update
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+" nmap <C-j> mz:m+<cr>`z
+" nmap <C-k> mz:m-2<cr>`z
+" vmap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
+" vmap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
-if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
-endif
+nmap ∆ mz:m+<cr>`z
+nmap ˚ mz:m-2<cr>`z
+vmap ∆ :m'>+<cr>`<my`>mzgv`yo`z
+vmap ˚ :m'<-2<cr>`>my`<mzgv`yo`z
+
+" if has("mac") || has("macunix")
+"   nmap ∆ <M-j>
+"   nmap ˚ <M-k>
+"   vmap ∆ <M-j>
+"   vmap ˚ <M-k>
+" endif
 
 " Delete trailing white space on save, useful for some filetypes ;)
 fun! CleanExtraSpaces()
@@ -286,10 +299,10 @@ map <leader>s? z=
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Quickly open a buffer for scribble
-map <leader>q :e ~/buffer<cr>
+"map <leader>q :e ~/buffer<cr>
 
 " Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
+"map <leader>x :e ~/buffer.md<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
@@ -354,6 +367,13 @@ endfunction
 " Set font according to system
 if has("mac") || has("macunix")
     set gfn=IBM\ Plex\ Mono:h14,Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
+
+
+	" set guifont=DroidSansMono\ Nerd\ Font:h11
+	" or:
+	set guifont=DroidSansMono_Nerd_Font:h11
+    
+
 elseif has("win16") || has("win32")
     set gfn=IBM\ Plex\ Mono:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
 elseif has("gui_gtk2")
@@ -379,7 +399,10 @@ colorscheme peaksea
 " => Fast editing and reloading of vimrc configs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " map <leader>e :e! ~/.vim_runtime/my_configs.vim<cr>
-" autocmd! bufwritepost ~/.vim_runtime/my_configs.vim source ~/.vim_runtime/my_configs.vim
+autocmd! bufwritepost ~/.config/nvim/init.vim source ~/.config/nvim/init.vim 
+autocmd! bufwritepost ~/.config/nvim/vimrcs/config.vim source ~/.config/nvim/vimrcs/config.vim 
+autocmd! bufwritepost ~/.config/nvim/vimrcs/filetypes.vim source ~/.config/nvim/vimrcs/filetypes.vim 
+autocmd! bufwritepost ~/.config/nvim/vimrcs/plugin_config.vim source ~/.config/nvim/vimrcs/plugin_config.vim 
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -415,9 +438,9 @@ cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
 
 " Map ? to something useful
-map ? $
-cmap ? $
-imap ? $
+" map ? $
+" cmap ? $
+" imap ? $
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -467,7 +490,7 @@ vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 map <leader>g :Ack 
 
 " When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
+noremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 
 " Do :help cope if you are unsure what cope is. It's super useful!
 "
@@ -495,7 +518,7 @@ func! DeleteTillSlash()
 
     if has("win16") || has("win32")
         let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\]\\).*", "\\1", "")
-    else
+   else
         let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*", "\\1", "")
     endif
 
