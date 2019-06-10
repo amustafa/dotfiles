@@ -1,5 +1,8 @@
 :let g:session_autosave = 'no'
 
+let g:tmux_navigator_disable_when_zoomed = 1
+
+
 """"""""""""""""""""""""""""""
 " => bufExplorer plugin
 """"""""""""""""""""""""""""""
@@ -9,6 +12,13 @@ let g:bufExplorerFindActive=1
 let g:bufExplorerSortBy='name'
 map <leader>o :BufExplorer<cr>
 
+""""""""""""""""""""""""""""""
+" => Indent Guides
+""""""""""""""""""""""""""""""
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 
 """"""""""""""""""""""""""""""
 " => MRU plugin
@@ -95,7 +105,7 @@ let g:multi_cursor_quit_key            = '<Esc>'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => surround.vim config
-" Annotate strings with gettext 
+" Annotate strings with gettext
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 vmap Si S(i_<esc>f)
 au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
@@ -159,10 +169,10 @@ let g:lightline#ale#indicator_ok = "\uf00c  "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vimroom
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:goyo_width=100
-let g:goyo_margin_top = 2
-let g:goyo_margin_bottom = 2
-nnoremap <silent> <leader>z :Goyo<cr>
+" let g:goyo_width=100
+" let g:goyo_margin_top = 2
+" let g:goyo_margin_bottom = 2
+" nnoremap <silent> <leader>z :Goyo<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -175,7 +185,7 @@ let g:go_fmt_command = "goimports"
 " => Ale (syntax checker)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_linters = {
-\   'javascript': ['jshint'],
+\   'javascript': ['eslint'],
 \   'python': ['pylint'],
 \   'go': ['go', 'golint', 'errcheck']
 \}
@@ -249,7 +259,7 @@ let g:jedi#goto_definitions_command = ""
 let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>n"
 let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>r"
+let g:jedi#rename_command = "<leader>rn"
 let g:jedi#completions_enabled = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -273,4 +283,3 @@ augroup ironmapping
     autocmd Filetype python vmap <buffer> <localleader>t <Plug>(iron-send-motion)
     "autocmd Filetype python nmap <buffer> <localleader>p <Plug>(iron-repeat-cmd)  " conflicts with error checking
 augroup END
-

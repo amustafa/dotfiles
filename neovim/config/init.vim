@@ -9,46 +9,44 @@ call plug#begin()
 " Nerdtree
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
-
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'jlanzarotta/bufexplorer'
 Plug 'vim-scripts/mru.vim'
+Plug 'mileszs/ack.vim' " fast search (settings change to ag)
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession', { 'on': 'Obsess' } " keeps sessions updated once started
+
 " Plug 'xolox/vim-session'
-Plug 'xolox/vim-misc'
+" Plug 'xolox/vim-colorscheme-switcher'
+" Plug 'xolox/vim-misc'
 Plug 'flazz/vim-colorschemes'
-Plug 'tmhedberg/SimpylFold', { 'for': 'py' }
-Plug 'mileszs/ack.vim' " fast search (settings change to ag)
+" Plug 'nathanaelkane/vim-indent-guides'
 
 " snippet manager and snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
-Plug 'jlanzarotta/bufexplorer'
-Plug 'xolox/vim-colorscheme-switcher'
 Plug 'mtth/scratch.vim'
-
+Plug 'ludovicchabant/vim-gutentags' " generate tags
 Plug 'amix/open_file_under_cursor.vim'
 " Plug 'zenbro/mirror.vim' " Mirror files on remote server
+" Plug 'majutsushi/tagbar'
 Plug 'tomtom/tlib_vim'
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'tpope/vim-abolish' " replaces commonly mispelled words
-Plug 'marcweber/vim-addon-mw-utils'
+" Plug 'marcweber/vim-addon-mw-utils'
 Plug 'tpope/vim-commentary'  " comment stuff out
 Plug 'terryma/vim-expand-region' " select increasingly larger regions
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'  " allows some plugins actions to repeat with .
 Plug 'terryma/vim-multiple-cursors'  "sublime-like cursor behavior
-Plug 'michaeljsmith/vim-indent-object' 
+Plug 'michaeljsmith/vim-indent-object'
 Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
-Plug 'gu-fan/riv.vim', { 'for': 'rst' }
-Plug 'gu-fan/InstantRst', { 'on': 'InstantRst', 'for': 'rst' }
-" Plug 'tpope/vim-eunuch' " Adds unix commands like delete and mv
-Plug 'lervag/vimtex', { 'for': 'tex' }  " latex edit and compile
 Plug 'ryanoasis/vim-devicons'
-Plug 'metakirby5/codi.vim'
+Plug 'metakirby5/codi.vim' " Adds a scratch patch coding interface that executes python
 
 Plug 'w0rp/ale'
 "Plug 'neomake/neomake'
@@ -63,23 +61,28 @@ Plug 'deoplete-plugins/deoplete-clang',  { 'for': ['c', 'cpp', 'cs', 'm'] }
 
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
-" Plug 'bfredl/nvim-ipy'
-" Plug 'hkupty/iron.nvim'
-" Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 
-" Language Specific formatters and syntax highlighters
+Plug 'tmhedberg/SimpylFold', { 'for': 'py' }
 Plug 'google/yapf', { 'for': 'py' }
 Plug 'ambv/black', { 'for': 'py' }
+Plug 'nvie/vim-flake8', { 'for': 'py' }
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
 Plug 'moll/vim-node', { 'for': 'js' }
-Plug 'chr4/nginx.vim'
+Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'rhysd/vim-fixjson', { 'for': 'json' }
+Plug 'gu-fan/riv.vim', { 'for': 'rst' }
+Plug 'lervag/vimtex', { 'for': 'tex' }  " latex edit and compile
+Plug 'gu-fan/InstantRst', { 'on': 'InstantRst', 'for': 'rst' }
 Plug 'tomlion/vim-solidity', { 'for': 'sol' }
 Plug 'groenewege/vim-less', { 'for': 'less' }  " syntax for less
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'nvie/vim-flake8', { 'for': 'py' }
 Plug 'plasticboy/vim-markdown', { 'for': 'md' }  " must have tabular before this. Style for Markdown
-Plug 'elzr/vim-json', { 'for': 'json' }  
-Plug 'rhysd/vim-fixjson', { 'for': 'json' }
+Plug 'tmhedberg/matchit'
+Plug 'mattn/emmet-vim', { 'for': ['html', 'css'] }
+" Plug 'bfredl/nvim-ipy'
+" Plug 'hkupty/iron.nvim'
+" Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+" Plug 'chr4/nginx.vim'
 
 call plug#end()  " Initialize plugin system
 
