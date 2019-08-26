@@ -3,3 +3,4 @@ config.local.ini
 */**/.mypy_cache/
 .mypy_cache/
 zsh/config/zshrc*.local
+tags

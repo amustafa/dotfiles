@@ -28,7 +28,7 @@ Plug 'flazz/vim-colorschemes'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 Plug 'mtth/scratch.vim'
-Plug 'ludovicchabant/vim-gutentags' " generate tags
+" Plug 'ludovicchabant/vim-gutentags' " generate tags
 Plug 'amix/open_file_under_cursor.vim'
 " Plug 'zenbro/mirror.vim' " Mirror files on remote server
 " Plug 'majutsushi/tagbar'
