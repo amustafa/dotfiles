@@ -38,6 +38,12 @@ set noswapfile
 set relativenumber
 set number
 
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
+
 :nnoremap <C-LEFT> :tabp<ENTER>
 :nnoremap <C-RIGHT> :tabn<ENTER>
 

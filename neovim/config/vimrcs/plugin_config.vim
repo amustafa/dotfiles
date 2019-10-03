@@ -39,15 +39,24 @@ nmap <c-n> <Plug>yankstack_substitute_newer_paste
 """"""""""""""""""""""""""""""
 " => CTRL-P
 """"""""""""""""""""""""""""""
-let g:ctrlp_working_path_mode = 0
+" let g:ctrlp_working_path_mode = 0
 
-let g:ctrlp_map = '<c-f>'
-map <leader>j :CtrlP<cr>
-map <c-b> :CtrlPBuffer<cr>
+" let g:ctrlp_map = '<c-p>'
+" map <leader>j :CtrlP<cr>
+" map <c-b> :CtrlPBuffer<cr>
 
-let g:ctrlp_max_height = 20
+" let g:ctrlp_max_height = 20
 
-let g:ctrlp_user_command = 'ag %s -l --ignore .git --nocolor --hidden -g ""'
+" let g:ctrlp_user_command = 'ag %s -l --ignore .git --nocolor --hidden -g ""'
+
+""""""""""""""""""""""""""""""
+" => FZF
+""""""""""""""""""""""""""""""
+let $FZF_DEFAULT_COMMAND = 'ag -l --ignore .git --nocolor --hidden -g ""'
+
+:noremap <c-p> :Files<cr>
+:noremap <c-b> :Buffers<cr>
+:noremap f :Ag<cr>
 
 """"""""""""""""""""""""""""""
 " => ZenCoding

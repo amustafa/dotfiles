@@ -10,13 +10,14 @@ call plug#begin()
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'  " Replaced with FZF
 Plug 'jlanzarotta/bufexplorer'
 Plug 'vim-scripts/mru.vim'
 Plug 'mileszs/ack.vim' " fast search (settings change to ag)
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-obsession', { 'on': 'Obsess' } " keeps sessions updated once started
+" Plug 'tpope/vim-obsession', { 'on': 'Obsess' } " keeps sessions updated once started
+Plug 'thaerkh/vim-workspace'
 
 " Plug 'xolox/vim-session'
 " Plug 'xolox/vim-colorscheme-switcher'
@@ -50,6 +51,8 @@ Plug 'metakirby5/codi.vim' " Adds a scratch patch coding interface that executes
 
 Plug 'w0rp/ale'
 "Plug 'neomake/neomake'
+Plug 'junegunn/fzf', { 'dir': '~/opt/fzf' }
+Plug 'junegunn/fzf.vim'
 
 " deoplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
