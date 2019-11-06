@@ -1,4 +1,13 @@
 # Ensures a local version of the config
+mkdir -p ${HOME}/workspace
+cd ${HOME}/workspace
+
+if [ ! -d dotfiles ]; then # if dir does not exist
+    git clone git@github.com:amustafa/dotfiles.git
+fi
+
+cd ${HOME}/workspace/dotfiles
+
 touch config.local.ini
 
 # Necessary program folders
@@ -25,8 +34,3 @@ zsh zsh/install.sh
 
 zsh tmux/install.sh
 echo "UPDATE ZSHRC"
-
-
-
-
-

@@ -1,13 +1,15 @@
 # System Installation and Configuration
 
-To install run, `install.sh`
+`curl https://raw.githubusercontent.com/amustafa/dotfiles/master/install.sh | sh`
+
+# Effects
 
 Adds `usr`, `opt`, and `bin` to $HOME:
 * `bin` is for binaries, usually soft links
 * `opt` is for command line and system type files and applications
 * `usr` is for user applications intended to be accessed directly
 
-All config files are places in `.config`.
+All config files are placed in `.config`.
 
 ## Install Python
     Since many of the underlying scripts use python, this is the first thing that is installed. Python 3.7.3 is the current version.
