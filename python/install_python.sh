@@ -26,16 +26,16 @@ if [ $DEPS_INSTALLED = "TRUE" ]; then
     eval "$(pyenv virtualenv-init -)"
 
     if [ "`uname -s`" = Linux ]; then
-        pyenv install 3.7.3
-        pyenv global 3.7.3
+        pyenv install 3.7.4
+        pyenv global 3.7.4
         # Instal pyenv virtual env
-        pyenv virtualenv 3.7.3 nvim
+        pyenv virtualenv 3.7.4 nvim
     else
         pyenv install 3.7.2
         pyenv global 3.7.2
         # Instal pyenv virtual env
         pyenv virtualenv 3.7.2 nvim
-    then
+    fi
 
 
 else
