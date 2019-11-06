@@ -1,5 +1,5 @@
 if [ "`uname -s`" = Darwin ]; then
     brew install exa
 else
-    cargo install exa
+    sudo apt-get install exa
 fi

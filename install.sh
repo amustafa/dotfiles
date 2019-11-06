@@ -18,15 +18,31 @@ if (which pyenv); then
     python --version
 else
     echo "Installing Python 3 ..."
-    ./programming/python/install_python.sh
+    cd python
+    ./install_python.sh
+    cd ..
 fi
 
-zsh zsh/install.sh
+cd applications
+./install.sh
+cd ..
 
-zsh tmux/install.sh
+cd zsh
+./install.sh
+cd ..
+
+cd tmux
+zsh install.sh
+cd ..
+
+cd programming
+zsh install.sh
+cd ..
+
+if [ "`uname -s`" = Linux ]; then
+    cd ubuntu
+    zsh install.sh
+    cd ..
+fi
+
 echo "UPDATE ZSHRC"
-
-
-
-
-

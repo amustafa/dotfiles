@@ -7,6 +7,8 @@ brew install autojump
 brew install bat
 brew install httpie
 brew install fd
+brew install mosh
+brew install tig
 
 echo "Need to get application packages for:"
 echo "iterm"
