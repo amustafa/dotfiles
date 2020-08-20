@@ -54,9 +54,9 @@ alias unexport='unset'
 
 #read documents
 if [ "$(uname -s)" = "Darwin" ]; then
-    alias o='open' 
-else    
-    alias o='xdg-open' 
+    alias o='open'
+else
+    alias o='xdg-open'
     alias trash='gio trash'
 fi
 
@@ -104,3 +104,6 @@ zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f
 
 # Python
 alias pip="python -m pip"
+
+# Git
+alias gcob="git checkout -b"

@@ -56,7 +56,7 @@ let $FZF_DEFAULT_COMMAND = 'ag -l --ignore .git --nocolor --hidden -g ""'
 
 :noremap <c-p> :Files<cr>
 :noremap <c-b> :Buffers<cr>
-:noremap f :Ag<cr>
+:noremap <c-f> :Ag<cr>
 
 """"""""""""""""""""""""""""""
 " => ZenCoding
@@ -187,7 +187,7 @@ let g:lightline#ale#indicator_ok = "\uf00c  "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim-go
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:go_fmt_command = "goimports"
+" let g:go_fmt_command = "goimports"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -196,7 +196,7 @@ let g:go_fmt_command = "goimports"
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'python': ['pylint'],
-\   'go': ['go', 'golint', 'errcheck']
+\   'go': ['gopls', 'golint', 'errcheck']
 \}
 
 let g:ale_sign_error = 'X'
@@ -214,6 +214,7 @@ let g:ale_fixers = {
 \ '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['yapf'],
 \   'javascript': ['eslint'],
+\   'go': ['gofmt'],
 \}
 
 " Set this setting in vimrc if you want to fix files automatically on save.
@@ -241,7 +242,7 @@ let g:UltiSnipsEditSplit="vertical"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Commentary (comment stuff out)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" autocmd FileType apache setlocal commentstring=#\ %s  " to adjust comment string
+autocmd FileType apache setlocal commentstring=#\ %s  " to adjust comment string
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

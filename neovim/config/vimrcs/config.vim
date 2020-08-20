@@ -443,6 +443,8 @@ cnoremap <C-K>		<C-U>
 cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
 
+cno w? w !diff % -
+
 " Map ? to something useful
 " map ? $
 " cmap ? $

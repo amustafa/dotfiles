@@ -51,6 +51,11 @@ endfunction
 """""""""""""""""""""""""""""""
 autocmd User Node if &filetype == "javascript" | setlocal expandtab | endif
 
+""""""""""""""""""""""""""""""
+" => Golang  section
+"""""""""""""""""""""""""""""""
+"autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+
 
 """"""""""""""""""""""""""""""
 " => JSON section

@@ -39,6 +39,16 @@ export ENHANCD_HOOK_AFTER_CD="ls"
 # export ENHANCD_HOME_ARG=""
 # export ENHANCD_USE_FUZZY_MATCH
 
+
+###############################
+# Zoxide
+# $_ZO_DATA_DIR: directory where zoxide will store its data files (default: platform-specific; see the dirs documentation for more information)
+# $_ZO_ECHO: when set to 1, z will print the matched directory before navigating to it
+# $_ZO_EXCLUDE_DIRS: list of directories separated by platform-specific characters (":" on Linux/macOS, ";" on Windows) to be excluded from the database
+# $_ZO_FZF_OPTS: custom flags to pass to fzf
+# $_ZO_MAXAGE: sets the maximum total age after which entries start getting deleted
+# $_ZO_RESOLVE_SYMLINKS: when set to 1, z add will resolve symlinks.
+
 # My Plugins
 
 ###############################
