@@ -52,11 +52,45 @@ nmap <c-n> <Plug>yankstack_substitute_newer_paste
 """"""""""""""""""""""""""""""
 " => FZF
 """"""""""""""""""""""""""""""
-let $FZF_DEFAULT_COMMAND = 'ag -l --ignore .git --nocolor --hidden -g ""'
+if executable('rg') " use rg
+  " --color never  never output color
+  " -l             only print the paths with at least one match
+  " --hidden       search hidden files and directories
+  " -S             smart case
+  " --follow       follow symlinks
+  " --ignore       respect ignore files
+  let $FZF_DEFAULT_COMMAND = 'rg -l --color never --hidden --follow -S --ignore --files""'
+
+elseif executable('ag')
+   " -l         files only
+   " --ignore   ignore files/directories matching PATTERN
+   " --nocolor  do not print color codes in results
+   " --hidden   search hidden files (obeys .*ignore files)
+   " -g         print filenames matching pattern
+  let $FZF_DEFAULT_COMMAND = 'ag -l --ignore .git --nocolor --hidden -g ""'
+endif
 
 :noremap <c-p> :Files<cr>
 :noremap <c-b> :Buffers<cr>
-:noremap f :Ag<cr>
+:noremap <c-f> :Rg<cr>
+:noremap <leader>p :FZFMru<cr>
+
+if has("nvim")
+    " Escape inside a FZF terminal window should exit the terminal window
+    " rather than going into the terminal's normal mode.
+    autocmd FileType fzf tnoremap <buffer> <Esc> <Esc>
+endif
+
+if has('nvim-0.4.0') || has("patch-8.2.0191")
+    let g:fzf_layout = { 'window': {
+                \ 'width': 0.9,
+                \ 'height': 0.7,
+                \ 'highlight': 'Comment',
+                \ 'rounded': v:false } }
+else
+    let g:fzf_layout = { "window": "silent botright 16split enew" }
+endif
+
 
 """"""""""""""""""""""""""""""
 " => ZenCoding
@@ -196,7 +230,9 @@ let g:go_fmt_command = "goimports"
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'python': ['pylint'],
-\   'go': ['go', 'golint', 'errcheck']
+\   'go': ['go', 'golint', 'errcheck'],
+\   'rust': ['rust-analyzer'],
+\
 \}
 
 let g:ale_sign_error = 'X'
@@ -214,7 +250,15 @@ let g:ale_fixers = {
 \ '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['yapf'],
 \   'javascript': ['eslint'],
+\   'rust': ['rustfmt'],
 \}
+
+let g:ale_rust_analyzer_config = {
+      \ 'diagnostics': { 'disabled': ['unresolved-import'] },
+      \ 'cargo': { 'loadOutDirsFromCheck': v:true },
+      \ 'procMacro': { 'enable': v:true },
+      \ 'checkOnSave': { 'command': 'cargo clippy', 'enable': v:true }
+      \ }
 
 " Set this setting in vimrc if you want to fix files automatically on save.
 " This is off by default.

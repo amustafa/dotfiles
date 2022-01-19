@@ -4,7 +4,7 @@ zplug "zplug/zplug", hook-build:"zplug --self-manage"
 zplug 'themes/sonicradish', from:oh-my-zsh
 
 # From oh my zsh
-    
+
 # Load completion library for those sweet [tab] squares
 zplug "lib/*", from:oh-my-zsh
 # zplug "lib/clipboard", from:oh-my-zsh
@@ -57,6 +57,8 @@ zplug "plugins/npm", from:oh-my-zsh
 zplug "plugins/fancy-ctrl-z", from:oh-my-zsh
 zplug "plugins/brew", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
 zplug "plugins/vi-mode", from:oh-my-zsh
+zplug "plugins/jira", from:oh-my-zsh
+zplug "plugins/emoji-clock", from:oh-my-zsh
 # zplug "laurenkt/zsh-vimto"
 zplug "so-fancy/diff-so-fancy", use:"third_party/build_fatpack/diff-so-fancy", as:command
 
@@ -73,8 +75,11 @@ zplug 'wfxr/forgit', defer:1
 
 zplug "supercrabtree/k"    # directory listing with git features
 zplug "djui/alias-tips"  # help remember aliases
-zplug "b4b4r07/enhancd", use:init.sh  # next gen cd command
+# zplug "b4b4r07/enhancd", use:init.sh  # next gen cd command
 zplug "mollifier/zload"  # autoloading functions
+# zplug "marlonrichert/zsh-autocomplete" # autocomplete live options
+
+zplug "tanium/vpn-fix", from:tanium, as:command, use:vpn
 zplug "amustafa/dotfiles", use:"zsh/plugins/plugins_pre_comp_init/*.zsh", defer:1
 
 # zplug "raylee/tldr", from:github, as:command, use:"tldr"
@@ -83,4 +88,3 @@ zplug "amustafa/dotfiles", use:"zsh/plugins/plugins_pre_comp_init/*.zsh", defer:
 # zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zdharma/fast-syntax-highlighting", defer:2
 zplug "amustafa/dotfiles", use:"zsh/plugins/plugins_post_comp_init/*.zsh", defer:3
-

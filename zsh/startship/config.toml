@@ -1,0 +1,31 @@
+# All
+format = """
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$cmd_duration\
+$docker_context\
+$line_break\
+$env_var\
+$character"""
+
+
+[directory]
+truncation_length = 8
+truncation_symbol = "…/"
+
+
+[env_var]
+
+[python]
+format='via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+pyenv_version_name = false
+
+[line_break]
+disabled = false
+
+[character]
+success_symbol = "[>](bold green) "
+error_symbol = "[✗](bold red) "
+vicmd_symbol = "[פֿ](bold orange)"

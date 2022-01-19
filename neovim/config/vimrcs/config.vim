@@ -485,7 +485,9 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 "    requires ack.vim - it's much better than vimgrep/grep
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use the the_silver_searcher if possible (much faster than Ack)
-if executable('ag')
+if executable('rg')
+  let g:ackprg = 'rg --vimgrep --smart-case'
+elseif executable('ag')
   let g:ackprg = 'ag --vimgrep --smart-case'
 endif
 

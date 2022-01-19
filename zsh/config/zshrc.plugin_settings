@@ -24,6 +24,38 @@ GEOMETRY_COLOR_DIR="111"                   # current directory color
 GEOMETRY_GREP="ag"                            # define which grep-like tool to use (By default it looks for rg, ag and finally grep)
 
 ###############################
+# ZOXIDE
+
+# Specifies the directory in which zoxide should store its database.
+# The default value varies across OSes:
+#     OS	Path	Example
+#     Linux / BSD	$XDG_DATA_HOME or $HOME/.local/share	/home/alice/.local/share
+#     macOS	$HOME/Library/Application Support	/Users/Alice/Library/Application Support
+#     Windows	{FOLDERID_RoamingAppData}	C:\Users\Alice\AppData\Roaming
+# _ZO_DATA_DIR
+
+# When set to 1, z will print the matched directory before navigating to it.
+_ZO_ECHO=1
+
+# Excludes the specified directories from the database.
+# This is provided as a list of globs, separated by OS-specific characters:
+#     OS	Separator	Example
+#     Linux / macOS / BSD	:	$HOME:$HOME/private/*
+#     Windows	;	$HOME;$HOME/private/*
+# By default, this is set to "$HOME".
+# _ZO_EXCLUDE_DIRS
+
+# Custom options to pass to fzf. See man fzf for the list of options.
+# _ZO_FZF_OPTS
+
+# Configures the aging algorithm, which limits the maximum number of entries in the database.
+# By default, this is set to 10000.
+# _ZO_MAXAGE
+
+# When set to 1, z will resolve symlinks before adding directories to the database.
+# _ZO_RESOLVE_SYMLINKS=1
+
+###############################
 # Enhancd
 export ENHANCD_DIR=$HOME/opt/enhancd
 export ENHANCD_DOT_ARG=-.
@@ -52,3 +84,7 @@ export ENHANCD_HOOK_AFTER_CD="ls"
 POWERLEVEL9K_MODE='nerdfont-complete'
 
 DEFAULT_USER='adam.mustafa'
+
+
+
+

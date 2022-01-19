@@ -5,6 +5,7 @@ alias vim="nvim"
 alias zshconfig="vim $ZSH_CONFIG_HOME/zshrc"
 alias tmux="TERM=screen-256color-bce tmux"
 
+
 # ls, the common ones I use a lot shortened for rapid fire usage
 # alias l='ls -lFh'     #size,show type,human readable
 # alias la='ls -lAFh'   #long list,show almost all,show type,human readable
@@ -29,6 +30,7 @@ alias lS='exa -1'			          # one list
 alias grep='grep --color'
 alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} ' # recursive line number with filename print 5 lines
 
+alias cd=z
 
 # Command line head / tail shortcuts
 alias -g H='| head'
@@ -54,9 +56,9 @@ alias unexport='unset'
 
 #read documents
 if [ "$(uname -s)" = "Darwin" ]; then
-    alias o='open' 
-else    
-    alias o='xdg-open' 
+    alias o='open'
+else
+    alias o='xdg-open'
     alias trash='gio trash'
 fi
 
@@ -104,3 +106,7 @@ zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f
 
 # Python
 alias pip="python -m pip"
+
+# nnn
+# Add option -e to your alias to open text files in $VISUAL/$EDITOR/ vi. Open detached if you wish.
+alias nnn="nnn -e"
