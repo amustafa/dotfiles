@@ -5,7 +5,8 @@
 set history=500
 
 " Python
-let g:python3_host_prog = $NVIM_PYTHON_VENV
+" let g:python3_host_prog = $NVIM_PYTHON_VENV
+let g:python3_host_prog = "/home/amustafa/.asdf/shims/python"
 
 " Enable filetype plugins
 filetype plugin on
@@ -33,7 +34,7 @@ imap jk <Esc>
 set foldmethod=indent
 set foldlevel=99
 set nu
-set clipboard=unnamed
+set clipboard=unnamedplus
 set noswapfile
 set relativenumber
 set number
@@ -192,10 +193,10 @@ map <c-space> ?
 map <silent> <leader><cr> :noh<cr>
 
 " Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-h> <C-w>h
+map <C-l> <C-w>l
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>:tabclose<cr>gT

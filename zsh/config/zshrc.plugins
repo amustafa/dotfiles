@@ -27,6 +27,7 @@ zplug "lib/*", from:oh-my-zsh
 # zplug "lib/theme-and-appearance", from:oh-my-zsh
 
 zplug "plugins/sudo", from:oh-my-zsh
+zplug "plugins/asdf", from:oh-my-zsh
 zplug "plugins/copybuffer", from:oh-my-zsh
 zplug "plugins/copydir", from:oh-my-zsh
 zplug "plugins/copyfile", from:oh-my-zsh

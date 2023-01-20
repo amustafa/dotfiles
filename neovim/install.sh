@@ -4,7 +4,7 @@ else
     python download_latest_neovim.py
 fi
 
-pyenv shell use nvim
+#pyenv shell use nvim
 pip install neovim
 pip install flake8
 pip install jedi

@@ -1,18 +1,5 @@
 # Install pyenv, add to path, build and install python, set python version
 
-# Install Prereqs
-# https://github.com/pyenv/pyenv/wiki/Common-build-problems
-DEPS_INSTALLED=""
-if [ "`uname -s`" = Linux ]; then
-    sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
-    libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
-    xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
-    DEPS_INSTALLED=TRUE
-elif [ "`uname -s`" = Darwin ]; then
-    brew install readline xz
-    # sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /
-    DEPS_INSTALLED=TRUE
-fi
 
 export PYENV_ROOT=$HOME/opt/pyenv
 

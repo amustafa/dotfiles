@@ -54,12 +54,10 @@ else
     if [ "`uname -s`" = Linux ]; then
         sudo apt-get install direnv
         sudo apt-get install fzf
-        sudo apt-get install silversearcher-ag
         sudo apt-get install git
     elif [ "`uname -s`" = Darwin ]; then
         brew install direnv
         brew install fzf
-        brew install the_silver_searcher
         brew install git
     fi
 fi
@@ -72,7 +70,7 @@ else
 fi
 
 if [ ! -e $HOME/.zshrc ]; then
-    ln -s $ZSH_CONFIG_HOME/zshrc $HOME/.zshrc
+    ln -s $ZSH_CONFIG_HOME/config/zshrc $HOME/.zshrc
 else
     echo ".zshrc is already there, update manually"
 fi

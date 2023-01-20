@@ -2,19 +2,19 @@
 # Starting Environment
 
 # Automatically start tmux on new terminal
-if  [ -n "$AM_TMUX_AUTOSTART" ]; then 
-    if [ -z ${TMUX+x} ]; then 
-        tmux; 
+if  [ -n "$AM_TMUX_AUTOSTART" ]; then
+    if [ -z ${TMUX+x} ]; then
+        tmux;
     fi
 fi
 
 # Sets config folder envvar if it doesn't exist
-if [ -z ${XDG_CONFIG_HOME+x} ]; then 
+if [ -z ${XDG_CONFIG_HOME+x} ]; then
     export XDG_CONFIG_HOME="$HOME/.config"
 fi
 
 # Sets zsh config folder envvar if it doesn't exist
-if [ -z ${ZSH_CONFIG_HOME+x} ]; then 
+if [ -z ${ZSH_CONFIG_HOME+x} ]; then
     export ZSH_CONFIG_HOME="${XDG_CONFIG_HOME}/zsh"
 fi
 
@@ -59,10 +59,10 @@ fi
 ## Initialize zplug (required)
 source $ZPLUG_HOME/init.zsh
 
-## Source zplug plugins file 
+## Source zplug plugins file
 source "$ZSH_CONFIG_HOME/zshrc.plugins"
 source "$ZSH_CONFIG_HOME/zshrc.plugins.local"
-   
+
 
 ## #############################################################
 # Install plugins if there are plugins that have not been installed
@@ -88,3 +88,11 @@ fi
 
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+
+autoload -Uz compinit
+zstyle ':completion:*' menu select
+fpath+=~/.zfunc
+source "/etc/profile.d/rvm.sh"
+source "/etc/profile.d/rvm.sh"
+source "/etc/profile.d/rvm.sh"

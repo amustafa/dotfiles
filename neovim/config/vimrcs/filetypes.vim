@@ -54,7 +54,8 @@ autocmd User Node if &filetype == "javascript" | setlocal expandtab | endif
 """"""""""""""""""""""""""""""
 " => Golang  section
 """""""""""""""""""""""""""""""
-"autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+" autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
 
 
 """"""""""""""""""""""""""""""
