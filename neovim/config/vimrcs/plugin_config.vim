@@ -164,6 +164,7 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
     -- additional_vim_regex_highlighting = true, -- DO NOT SET THIS
+      ensure_installed = { 'go', 'gomod', 'gosum', 'gowork', 'graphql', 'gitcommit', 'git_rebase', 'gitattributes','lua', 'python', 'rust', 'typescript', 'javascript', 'vim', 'help', 'cmake', 'make', 'terraform', 'json', 'html', 'css', 'bash', 'dockerfile',  'latex', 'markdown', 'markdown_inline', 'proto', 'ql', 'query', 'rust',  'toml',  'yaml'},
   },
 }
 EOF
@@ -555,3 +556,101 @@ lua  require("bufferline").setup{}
 "     autocmd Filetype python vmap <buffer> <localleader>t <Plug>(iron-send-motion)
 "     "autocmd Filetype python nmap <buffer> <localleader>p <Plug>(iron-repeat-cmd)  " conflicts with error checking
 " augroup END
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => tabnine
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+
+" lua  <<EOF
+" require('tabnine').setup({
+"  disable_auto_comment=true,
+"  accept_keymap="<Tab>",
+"  dismiss_keymap = "<C-]>",
+"  debounce_ms = 800,
+"  suggestion_color = {gui = "#808080", cterm = 244},
+"  exclude_filetypes = {"TelescopePrompt"}
+" })
+" EOF
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => ChatGPT
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+lua <<EOF
+require("chatgpt").setup({
+  welcome_message = WELCOME_MESSAGE,
+  loading_text = "loading",
+  question_sign = "", -- you can use emoji if you want e.g. 🙂
+  answer_sign = "ﮧ", -- 🤖
+  max_line_length = 120,
+  yank_register = "+",
+  chat_layout = {
+    relative = "editor",
+    position = "50%",
+    size = {
+      height = "80%",
+      width = "80%",
+    },
+  },
+  settings_window = {
+    border = {
+      style = "rounded",
+      text = {
+        top = " Settings ",
+      },
+    },
+  },
+  chat_window = {
+    filetype = "chatgpt",
+    border = {
+      highlight = "FloatBorder",
+      style = "rounded",
+      text = {
+        top = " ChatGPT ",
+      },
+    },
+  },
+  chat_input = {
+    prompt = "  ",
+    border = {
+      highlight = "FloatBorder",
+      style = "rounded",
+      text = {
+        top_align = "center",
+        top = " Prompt ",
+      },
+    },
+  },
+  openai_params = {
+    model = "gpt-3.5-turbo",
+    frequency_penalty = 0,
+    presence_penalty = 0,
+    max_tokens = 300,
+    temperature = 0,
+    top_p = 1,
+    n = 1,
+  },
+  openai_edit_params = {
+    model = "code-davinci-edit-001",
+    temperature = 0,
+    top_p = 1,
+    n = 1,
+  },
+  keymaps = {
+    close = { "<C-c>" },
+    submit = "<C-Enter>",
+    yank_last = "<C-y>",
+    yank_last_code = "<C-k>",
+    scroll_up = "<C-u>",
+    scroll_down = "<C-d>",
+    toggle_settings = "<C-o>",
+    new_session = "<C-n>",
+    cycle_windows = "<Tab>",
+    -- in the Sessions pane
+    select_session = "<Space>",
+    rename_session = "r",
+    delete_session = "d",
+  },
+})
+EOF

@@ -110,3 +110,10 @@ endif
 " => Twig section
 """"""""""""""""""""""""""""""
 autocmd BufRead *.twig set syntax=html filetype=html
+
+
+""""""""""""""""""""""""""""""
+" => GraphQL section
+""""""""""""""""""""""""""""""
+au BufNewFile,BufRead *.prisma setfiletype graphql
+autocmd BufWritePre *.graphql Neoformat

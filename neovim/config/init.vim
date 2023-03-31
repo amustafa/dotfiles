@@ -127,6 +127,28 @@ Plug 'williamboman/mason.nvim' " markdown lsp
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'jparise/vim-graphql'
 
+Plug 'github/copilot.vim'
+" Plug 'Exafunction/codeium.vim'
+
+" Plug 'codota/tabnine-nvim', { 'do': './dl_binaries.sh' }
+Plug 'MunifTanjim/nui.nvim'
+Plug 'dpayne/CodeGPT.nvim'
+Plug 'jackMort/ChatGPT.nvim'
+      Plug 'MunifTanjim/nui.nvim'
+      Plug 'nvim-lua/plenary.nvim'
+      Plug 'nvim-telescope/telescope.nvim'
+Plug 'aduros/ai.vim'
+
+
+
+
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install --frozen-lockfile --production',
+  \ 'branch': 'release/0.x'
+  \ }
+
+Plug 'sbdchd/neoformat'
+
 
 "
 " dap plugins
