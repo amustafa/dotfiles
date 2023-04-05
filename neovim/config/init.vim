@@ -134,18 +134,18 @@ Plug 'github/copilot.vim'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'dpayne/CodeGPT.nvim'
 Plug 'jackMort/ChatGPT.nvim'
-      Plug 'MunifTanjim/nui.nvim'
-      Plug 'nvim-lua/plenary.nvim'
-      Plug 'nvim-telescope/telescope.nvim'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'aduros/ai.vim'
 
 
 
 
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install --frozen-lockfile --production',
-  \ 'branch': 'release/0.x'
-  \ }
+" Plug 'prettier/vim-prettier', {
+"   \ 'do': 'yarn install --frozen-lockfile --production',
+"   \ 'branch': 'release/0.x'
+"   \ }
 
 Plug 'sbdchd/neoformat'
 
@@ -188,6 +188,7 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v<CurrentMajor>.*'}
 Plug 'rafamadriz/friendly-snippets'
 Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'github/copilot.vim'
 
 " For ultisnips users.
 " Plug 'SirVer/ultisnips'

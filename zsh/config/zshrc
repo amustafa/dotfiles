@@ -1,6 +1,9 @@
 ###################################################
 # Starting Environment
 
+autoload -Uz compinit
+compinit
+
 # Automatically start tmux on new terminal
 if  [ -n "$AM_TMUX_AUTOSTART" ]; then
     if [ -z ${TMUX+x} ]; then
@@ -29,13 +32,13 @@ if [ ! -e "$ZSH_CONFIG_HOME/zshrc.env.local" ]; then
 fi
 
 # Load default system settings
-source "$ZSH_CONFIG_HOME/zshrc.env"
 source "$ZSH_CONFIG_HOME/zshrc.paths"
+source "$ZSH_CONFIG_HOME/zshrc.env"
 source "$ZSH_CONFIG_HOME/zshrc.plugin_settings"
 
 # Source local environment variables
-source "$ZSH_CONFIG_HOME/zshrc.env.local"
 source "$ZSH_CONFIG_HOME/zshrc.paths.local"
+source "$ZSH_CONFIG_HOME/zshrc.env.local"
 
 
 ###################################################
@@ -90,9 +93,10 @@ fi
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
 
-autoload -Uz compinit
 zstyle ':completion:*' menu select
 fpath+=~/.zfunc
-source "/etc/profile.d/rvm.sh"
-source "/etc/profile.d/rvm.sh"
-source "/etc/profile.d/rvm.sh"
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

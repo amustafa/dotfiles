@@ -1,8 +1,8 @@
-if [ "`uname -s`" = Darwin ]; then
-    brew install neovim
-else
-    python download_latest_neovim.py
-fi
+#if [ "`uname -s`" = Darwin ]; then
+#    brew install neovim
+#else
+#    python download_latest_neovim.py
+#fi
 
 #pyenv shell use nvim
 pip install neovim
