@@ -63,8 +63,12 @@ Plug 'windwp/nvim-spectre' " find and replace
 Plug 'klen/nvim-config-local' " local neovim config files
 
 
+Plug 'mattn/vim-goimports'
+
 Plug 'w0rp/ale'
 "Plug 'neomake/neomake'
+Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
+
 Plug 'junegunn/fzf', { 'dir': '~/opt/fzf' }
 Plug 'junegunn/fzf.vim'
 Plug 'janko/vim-test'
@@ -106,6 +110,7 @@ Plug 'groenewege/vim-less', { 'for': 'less' }  " syntax for less
 Plug 'ray-x/go.nvim'
 Plug 'ray-x/guihua.lua' "; recommended if need floating window support
 
+
 Plug 'plasticboy/vim-markdown', { 'for': 'md' }  " must have tabular before this. Style for Markdown
 
 Plug 'bufbuild/vim-buf' " protobuf
@@ -129,15 +134,18 @@ Plug 'jparise/vim-graphql'
 
 Plug 'github/copilot.vim'
 " Plug 'Exafunction/codeium.vim'
+" Plug 'sourcegraph/sg.nvim', { 'do': 'nvim -l build/init.lua' }
+
 
 " Plug 'codota/tabnine-nvim', { 'do': './dl_binaries.sh' }
 Plug 'MunifTanjim/nui.nvim'
-Plug 'dpayne/CodeGPT.nvim'
+" Plug 'dpayne/CodeGPT.nvim'
 Plug 'jackMort/ChatGPT.nvim'
+Plug 'robitx/gp.nvim'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'aduros/ai.vim'
+" Plug 'aduros/ai.vim'
 
 
 
@@ -147,7 +155,9 @@ Plug 'aduros/ai.vim'
 "   \ 'branch': 'release/0.x'
 "   \ }
 
-Plug 'sbdchd/neoformat'
+" Plug 'sbdchd/neoformat'
+" Plug 'mhartington/formatter.nvim'
+Plug 'mfussenegger/nvim-lint'
 
 
 "
@@ -167,11 +177,12 @@ Plug 'theHamsta/nvim-dap-virtual-text'
 " Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 " Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}  " 9000+ Snippets
 
-" lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
+
 " Need to **configure separately**
 
 " Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
-"
+
+Plug 'kylechui/nvim-surround'
 
 " nvim-cmp recommended
 Plug 'neovim/nvim-lspconfig'
@@ -185,10 +196,11 @@ Plug 'hrsh7th/nvim-cmp'
 " Plug 'hrsh7th/vim-vsnip'
 
 " For luasnip users.
-Plug 'L3MON4D3/LuaSnip', {'tag': 'v<CurrentMajor>.*'}
-Plug 'rafamadriz/friendly-snippets'
-Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'github/copilot.vim'
+" Plug 'L3MON4D3/LuaSnip', {'tag': 'v<CurrentMajor>.*'}
+" Plug 'rafamadriz/friendly-snippets'
+" Plug 'saadparwaiz1/cmp_luasnip'
+
+
 
 " For ultisnips users.
 " Plug 'SirVer/ultisnips'

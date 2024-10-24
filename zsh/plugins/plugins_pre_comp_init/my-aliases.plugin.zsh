@@ -102,6 +102,15 @@ alias -s ace="unace l"
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 
 
+# graphite
+alias co="gt b checkout"
+alias gbs="gt b submit"
+alias gss="gt stack submit"
+alias gsr="gt stack restack"
+alias gds="gt downstack submit"
+alias gdr="gt downstack restack"
+
+
 # Python
 alias pip="python -m pip"
 

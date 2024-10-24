@@ -70,7 +70,7 @@ snor <c-j> <esc>i<right><c-r>=snipMate#TriggerSnippet()<cr>
 """"""""""""""""""""""""""""""
 " => LuaSnip
 """"""""""""""""""""""""""""""
-lua require("luasnip.loaders.from_vscode").lazy_load()
+" lua require("luasnip.loaders.from_vscode").lazy_load()
 
 """"""""""""""""""""""""""""""
 " => Vim grep
@@ -202,8 +202,14 @@ EOF
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => mason
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-lua require("mason").setup()
-lua require("mason-lspconfig").setup()
+lua <<EOF
+require("mason").setup({
+  ensure_installed = {
+      "gopls",
+  },
+})
+require("mason-lspconfig").setup()
+EOF
 
 
 
@@ -241,6 +247,7 @@ lua <<EOF
       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
+      { name = "cody" },
       { name = 'nvim_lsp' },
       -- { name = 'vsnip' }, -- For vsnip users.
       { name = 'luasnip' }, -- For luasnip users.
@@ -253,7 +260,7 @@ lua <<EOF
 
 
 
-  require'lspconfig'.golangci_lint_ls.setup{}
+  -- require'lspconfig'.golangci_lint_ls.setup{}
   require'lspconfig'.gopls.setup{}
   require'lspconfig'.graphql.setup{}
 
@@ -349,6 +356,14 @@ vmap Si S(i_<esc>f)
 au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
 
 
+lua <<EOF
+require("nvim-surround").setup({
+            -- Configuration here, or leave empty to use defaults
+        })
+EOF
+
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => lightline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -416,8 +431,10 @@ let g:lightline#ale#indicator_ok = "\uf00c  "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim-go
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:go_fmt_command = "goimports"
+let g:go_fmt_command = "goimports -local"
 lua require('go').setup()
+lua require("go.format").goimports()  -- goimports + gofmt
+
 autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
@@ -425,7 +442,10 @@ lua require'lspconfig'.gopls.setup{}
 lua require("nvim-dap-virtual-text").setup()
 
 
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vim goimports
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:goimports_local = 'github.com/FinTronners'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -654,3 +674,18 @@ require("chatgpt").setup({
   },
 })
 EOF
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => gp.nvim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+lua <<EOF
+require("gp").setup()
+EOF
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => sg.nvim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" lua <<EOF
+" require("sg").setup()
+" EOF

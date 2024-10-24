@@ -49,7 +49,7 @@ Plugin 'maxbrunsfeld/vim-yankstack'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'  " allows some plugins actions to repeat with .
 Plugin 'terryma/vim-multiple-cursors'  "sublime-like cursor behavior
-Plugin 'michaeljsmith/vim-indent-object' 
+Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'Rykka/riv.vim'
 Plugin 'Rykka/InstantRst'
