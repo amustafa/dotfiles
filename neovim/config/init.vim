@@ -123,6 +123,8 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'css'] }
 " Plug 'chr4/nginx.vim'
 
 Plug 'neovim/nvim-lspconfig' " https://github.com/neovim/nvim-lspconfig
+Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
+Plug 'ray-x/navigator.lua'
 
 Plug 'buoto/gotests-vim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' } " fuzzy finder
@@ -163,8 +165,11 @@ Plug 'mfussenegger/nvim-lint'
 "
 " dap plugins
 Plug 'mfussenegger/nvim-dap'
+Plug 'nvim-neotest/nvim-nio'
 Plug 'rcarriga/nvim-dap-ui'
 Plug 'nvim-lua/plenary.nvim'
+
+
 " Plug 'yriveiro/dap-go.nvim'
 Plug 'leoluz/nvim-dap-go'
 Plug 'theHamsta/nvim-dap-virtual-text'

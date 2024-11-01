@@ -689,3 +689,8 @@ EOF
 " lua <<EOF
 " require("sg").setup()
 " EOF
+
+
+lua <<EOF
+require'navigator'.setup()
+EOF

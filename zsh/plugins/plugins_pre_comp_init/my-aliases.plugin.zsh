@@ -1,4 +1,4 @@
-# Aliases.
+# Aliase.
 
 alias cat="bat"   # use bat as cat instead of default
 alias vim="nvim"
@@ -16,15 +16,15 @@ alias tmux="TERM=screen-256color-bce tmux"
 # alias lart='ls -1Fcart'
 # alias lrt='ls -1Fcrt'
 
-alias l='exa -lFgh'                   # list, size, show type
-alias ll='exa -lBFg'                  # long list
-alias lll='exa -lBhgUm@'              # long long list
-alias la='exa -lFag'                  # long list, show almost all, show type and hidden
-alias lt='exa -lFg --sort=modified'   # list, sorted by modified date, recursive, show type and hidden
-alias lr='exa -RFga --sort=modified'   # list, sorted by modified date, recursive, show type and hidden
-alias ldot='exa -ld .*'
-alias lm='exa -lBdFa --sort=modified' # long list, no recursion, sorted by modified date, show type and hidden
-alias lS='exa -1'			          # one list
+alias l='eza -lFgh'                   # list, size, show type
+alias ll='eza -lBFg'                  # long list
+alias lll='eza -lBhgUm@'              # long long list
+alias la='eza -lFag'                  # long list, show almost all, show type and hidden
+alias lt='eza -lFg --sort=modified'   # list, sorted by modified date, recursive, show type and hidden
+alias lr='eza -RFga --sort=modified'   # list, sorted by modified date, recursive, show type and hidden
+alias ldot='eza -ld .*'
+alias lm='eza -lBdFa --sort=modified' # long list, no recursion, sorted by modified date, show type and hidden
+alias lS='eza -1'			          # one list
 
 alias grep='grep --color'
 alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} ' # recursive line number with filename print 5 lines

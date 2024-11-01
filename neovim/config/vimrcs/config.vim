@@ -5,8 +5,19 @@
 set history=500
 
 " Python
-" let g:python3_host_prog = $NVIM_PYTHON_VENV
-let g:python3_host_prog = "/home/amustafa/.asdf/shims/python"
+" Check the operating system
+if has('unix')
+    " Check for Mac
+    if filereadable('/usr/bin/sw_vers')
+        " Mac configuration
+        let g:python_host_prog = "/Users/amustafa/.asdf/shims/python"
+        let g:python3_host_prog = "/Users/amustafa/.asdf/shims/python3"
+    else
+        " Ubuntu configuration
+        let g:python3_host_prog = $NVIM_PYTHON_VENV
+    endif
+endif
+
 
 " Enable filetype plugins
 filetype plugin on
