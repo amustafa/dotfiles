@@ -8,7 +8,7 @@ if [ -z ${ZSH_CONFIG_HOME+x} ]; then
     export ZSH_CONFIG_HOME="${XDG_CONFIG_HOME}/zsh"
 fi
 
-export ZPLUG_HOME=$HOME/opt/zplug
+export ANTIDOTE_DIR=$HOME/.antidote
 
 # Install ZSH
 if (which zsh); then
@@ -25,14 +25,13 @@ fi
 # Verify
 zsh --version
 
-# Install zplug
+# Install antidote
 
-if [ ! -e $ZPLUG_HOME ]; then
-    echo "Installing Zplug"
-    mkdir -p $ZPLUG_HOME
-    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+if [ ! -e "$ANTIDOTE_DIR" ]; then
+    echo "Installing Antidote"
+    git clone --depth=1 https://github.com/mattmc3/antidote.git "$ANTIDOTE_DIR"
 else
-    echo "Zplug already installed"
+    echo "Antidote already installed"
 fi
 
 # Set as default shell

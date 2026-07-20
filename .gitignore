@@ -3,5 +3,7 @@ config.local.ini
 */**/.mypy_cache/
 .mypy_cache/
 zsh/config/zshrc*.local
+zsh/config/zsh_plugins.local.txt
+zsh/config/zsh_plugins.zsh
 tags
 applications/nerdfonts/tmp

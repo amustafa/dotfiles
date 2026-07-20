@@ -1,8 +1,8 @@
-#if [ "`uname -s`" = Darwin ]; then
-#    brew install neovim
-#else
-#    python download_latest_neovim.py
-#fi
+if [ "`uname -s`" = Darwin ]; then
+    brew install neovim
+else
+    python download_latest_neovim.py
+fi
 
 #pyenv shell use nvim
 pip install neovim
@@ -27,10 +27,6 @@ if [ -e nvim.appimage ]; then
 #     ln -s $NVIM_APP_DIR/nvim/bin/nvim $HOME/bin
 fi
 
-# Install vim.plug
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-mkdir -p $NVIM_CONFIG_HOME
-ln -s `pwd`/vimrcs $NVIM_CONFIG_HOME/vimrcs
-ln -s `pwd`/init.vim $NVIM_CONFIG_HOME/init.vim
+# Plugins are managed by lazy.nvim, which init.lua bootstraps itself on first run.
+mkdir -p `dirname $NVIM_CONFIG_HOME`
+ln -s `pwd`/config $NVIM_CONFIG_HOME

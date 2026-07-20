@@ -1,9 +1,6 @@
 ###################################################
 # Starting Environment
 
-autoload -Uz compinit
-compinit
-
 # Automatically start tmux on new terminal
 if  [ -n "$AM_TMUX_AUTOSTART" ]; then
     if [ -z ${TMUX+x} ]; then
@@ -27,7 +24,7 @@ if [ ! -e "$ZSH_CONFIG_HOME/zshrc.env.local" ]; then
     echo "# zshrc.local\n# Add local zshrc content here" > $ZSH_CONFIG_HOME/zshrc.local
     echo "# zshrc.env.local\n# Add local environment vars here" > $ZSH_CONFIG_HOME/zshrc.env.local
     echo "# zshrc.paths.local\n# Add paths to PATH" > $ZSH_CONFIG_HOME/zshrc.paths.local
-    echo "# zshrc.plugins.local\n# Add local plugins" > $ZSH_CONFIG_HOME/zshrc.plugins.local
+    echo "# zsh_plugins.local.txt\n# Add local plugins (antidote format)" > $ZSH_CONFIG_HOME/zsh_plugins.local.txt
     echo "# zshrc.plugins_settings.local\n# Add local plugins" > $ZSH_CONFIG_HOME/zshrc.plugins_settings.local
 fi
 
@@ -42,47 +39,32 @@ source "$ZSH_CONFIG_HOME/zshrc.env.local"
 
 
 ###################################################
-# Check if zplug is installed
+# Antidote Plugin Manager
 
-if [[ ! -d $ZPLUG_HOME ]]; then
-    printf "Install zplug in ${ZPLUG_HOME}? [y/N]: "
+# Install antidote if missing
+if [[ ! -d ${ANTIDOTE_DIR} ]]; then
+    printf "Install antidote in ${ANTIDOTE_DIR}? [y/N]: "
     if read -q; then
-        mkdir -p $ZPLUG_HOME
-        curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-        source $ZPLUG_HOME/init.zsh && zplug update --self
-    else:
-        echo "Then do it yourself!"
+        echo
+        git clone --depth=1 https://github.com/mattmc3/antidote.git "${ANTIDOTE_DIR}"
+    else
+        echo "\nThen do it yourself!"
     fi
 fi
 
+# Source local pre-compinit plugins (not managed by antidote)
+for plugin_file in "$ZSH_CONFIG_HOME/../plugins/plugins_pre_comp_init/"*.plugin.zsh(N); do
+    source "$plugin_file"
+done
 
-###############################################################
-## Load Plugins
+# Initialize and load antidote plugins
+source "${ANTIDOTE_DIR}/antidote.zsh"
+antidote load "$ZSH_CONFIG_HOME/zsh_plugins.txt"
 
-## Initialize zplug (required)
-source $ZPLUG_HOME/init.zsh
-
-## Source zplug plugins file
-source "$ZSH_CONFIG_HOME/zshrc.plugins"
-source "$ZSH_CONFIG_HOME/zshrc.plugins.local"
-
-
-## #############################################################
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-   printf "Install zplug plugins? [y/N]: "
-   if read -q; then
-       echo
-       zplug install
-   else
-       echo
-   fi
-fi
-#################################################################
-
-echo "Loading Zplug"
-zplug load --verbose
-clear
+# Source local post-compinit plugins (not managed by antidote)
+for plugin_file in "$ZSH_CONFIG_HOME/../plugins/plugins_post_comp_init/"*.plugin.zsh(N); do
+    source "$plugin_file"
+done
 
 ## Source local zshrc
 if [ -f "$ZSH_CONFIG_HOME/zshrc.local" ]; then
@@ -90,23 +72,25 @@ if [ -f "$ZSH_CONFIG_HOME/zshrc.local" ]; then
 fi
 
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+#source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
 
 zstyle ':completion:*' menu select
 fpath+=~/.zfunc
 
-## . "$HOME/.asdf/asdf.sh"
-echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
+ . "$HOME/.asdf/asdf.sh"
+
+#echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
 # append completions to fpath
 fpath=(${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
 
-##eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+# export PATH="$PATH:$HOME/.rvm/bin"
+
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 #compdef gt
 ###-begin-gt-completions-###
 #
@@ -127,5 +111,38 @@ _gt_yargs_completions()
 compdef _gt_yargs_completions gt
 ###-end-gt-completions-###
 
+eval "$(starship init zsh)"
 
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+clear
+
+# Clipboard aliases (wraps OMZ clipcopy/clippaste — works on Linux and macOS)
+alias copy='clipcopy'
+alias paste='clippaste'
+
+# Task Master aliases added on 8/20/2025
+alias tm='task-master'
+alias taskmaster='task-master'
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+
+
+source <(COMPLETE=zsh jj)
+
+# opencode
+export PATH=/home/amustafa/.opencode/bin:$PATH
+
+# Claude Code deferred MCP loading (added by Taskmaster)
+export ENABLE_EXPERIMENTAL_MCP_CLI='true'
+
+# Mermaid diagram rendering in terminal
+render-mermaid() {
+  local file="${1:--}"
+  local output="/tmp/mermaid-render.png"
+  local puppeteer_config="$HOME/.config/mermaid/puppeteer-config.json"
+
+  if [[ "$file" == *.md ]]; then
+    mmdc -p "$puppeteer_config" -i "$file" -o "$output" 2>&1 && chafa "$output"
+  else
+    mmdc -p "$puppeteer_config" -i "$file" -o "$output" 2>&1 && chafa "$output"
+  fi
+}

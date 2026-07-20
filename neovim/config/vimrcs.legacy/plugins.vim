@@ -1,23 +1,16 @@
-" To convert to neovm: https://arusahni.net/blog/2015/04/switching-to-neovim-part-2.html
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-let s:editor_root=expand("${XDG_CONFIG_HOME}/nvim")
-
 
 call plug#begin()
 
-" Nerdtree
-" Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'nvim-tree/nvim-web-devicons' " optional, for file icons
+Plug 'nvim-tree/nvim-tree.lua'
 Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 " Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': '/home/amustafa/.asdf/shims/python -m chadtree deps'}
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'christoomey/vim-tmux-navigator'
-" Plug 'ctrlpvim/ctrlp.vim'  " Replaced with FZF
+" Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'christoomey/vim-tmux-navigator'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'vim-scripts/mru.vim'
-Plug 'mileszs/ack.vim' " fast search (settings change to ag)
+" Plug 'mileszs/ack.vim' " fast search (settings change to ag)
 Plug 'tpope/vim-fugitive'
 " Plug 'tpope/vim-obsession', { 'on': 'Obsess' } " keeps sessions updated once started
 Plug 'thaerkh/vim-workspace'
@@ -52,7 +45,6 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'airblade/vim-gitgutter'
 " Plug 'easymotion/vim-easymotion'
 " Plug 'ryanoasis/vim-devicons'
-Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 
 Plug 'tpope/vim-dispatch'
@@ -74,6 +66,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'janko/vim-test'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'ldelossa/litee.nvim'
+Plug 'ldelossa/gh.nvim'
+" Plug 'kndndrj/nvim-dbee'
 
 " deoplete
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -134,7 +129,10 @@ Plug 'williamboman/mason.nvim' " markdown lsp
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'jparise/vim-graphql'
 
-Plug 'github/copilot.vim'
+" Plug 'github/copilot.vim'
+Plug 'zbirenbaum/copilot.lua' " Copilot completion source, replacement for copilot.vim
+Plug 'greggh/claude-code.nvim'
+Plug 'supermaven-inc/supermaven-nvim'
 " Plug 'Exafunction/codeium.vim'
 " Plug 'sourcegraph/sg.nvim', { 'do': 'nvim -l build/init.lua' }
 
@@ -144,20 +142,30 @@ Plug 'MunifTanjim/nui.nvim'
 " Plug 'dpayne/CodeGPT.nvim'
 Plug 'jackMort/ChatGPT.nvim'
 Plug 'robitx/gp.nvim'
-Plug 'MunifTanjim/nui.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
 " Plug 'aduros/ai.vim'
+Plug 'ThePrimeagen/harpoon', { 'branch': 'harpoon2' }
 
 
 
+" Avante Deps
+Plug 'MeanderingProgrammer/render-markdown.nvim'
+
+" Optional deps
+Plug 'HakonHarnes/img-clip.nvim'
+Plug 'stevearc/dressing.nvim' " for enhanced input UI
+Plug 'folke/snacks.nvim' " for modern input UI
+
+" Yay, pass source=true if you want to build from source
+Plug 'yetone/avante.nvim', { 'branch': 'main', 'do': 'make' }
 
 " Plug 'prettier/vim-prettier', {
 "   \ 'do': 'yarn install --frozen-lockfile --production',
 "   \ 'branch': 'release/0.x'
 "   \ }
 
-" Plug 'sbdchd/neoformat'
+Plug 'sbdchd/neoformat'
 " Plug 'mhartington/formatter.nvim'
 Plug 'mfussenegger/nvim-lint'
 
@@ -201,9 +209,15 @@ Plug 'hrsh7th/nvim-cmp'
 " Plug 'hrsh7th/vim-vsnip'
 
 " For luasnip users.
-" Plug 'L3MON4D3/LuaSnip', {'tag': 'v<CurrentMajor>.*'}
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'} " Replace <CurrentMajor> by the latest released major (first number of latest release)
+
 " Plug 'rafamadriz/friendly-snippets'
 " Plug 'saadparwaiz1/cmp_luasnip'
+"
+
+" Github
+Plug 'topaxi/pipeline.nvim'
+Plug 'pwntester/octo.nvim'
 
 
 
@@ -216,31 +230,3 @@ Plug 'hrsh7th/nvim-cmp'
 " Plug 'dcampos/cmp-snippy'
 
 call plug#end()  " Initialize plugin system
-
-command! Scratch2 lua require'tools'.makeScratch()
-
-
-
-""" Load Configs """""""""""
-
-source ~/.config/nvim/vimrcs/config.vim
-try
-source ~/.config/nvim/vimrcs/config.local.vim
-catch
-endtry
-
-source ~/.config/nvim/vimrcs/filetypes.vim
-try
-source ~/.config/nvim/vimrcs/filetypes.local.vim
-catch
-endtry
-
-source ~/.config/nvim/vimrcs/plugin_config.vim
-try
-source ~/.config/nvim/vimrcs/plugin_config.local.vim
-catch
-endtry
-
-""""""""""""""""""""""""""""""""""""""""'
-set exrc
-set secure

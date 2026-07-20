@@ -12,7 +12,7 @@
 * mosh - better ssh
 * tig - git terminal UI (consider using gitoxide instead)
 * zoxide or enhanCD - better cd (comparing the two)
-* exa - better ls
+* eza - better ls
 * jq - sed for json
 * semgrep - semantic grep
 * sd - better sed

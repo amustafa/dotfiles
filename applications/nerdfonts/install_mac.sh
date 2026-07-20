@@ -1,2 +1,1 @@
-brew tap caskroom/fonts
-brew cask install font-hack-nerd-font
+brew install --cask font-hack-nerd-font

@@ -40,6 +40,10 @@ cd zsh
 ./install.sh
 cd ..
 
+cd neovim
+zsh install.sh
+cd ..
+
 cd tmux
 zsh install.sh
 cd ..

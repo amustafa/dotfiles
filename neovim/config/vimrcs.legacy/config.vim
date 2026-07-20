@@ -6,17 +6,18 @@ set history=500
 
 " Python
 " Check the operating system
-if has('unix')
-    " Check for Mac
-    if filereadable('/usr/bin/sw_vers')
-        " Mac configuration
-        let g:python_host_prog = "/Users/amustafa/.asdf/shims/python"
-        let g:python3_host_prog = "/Users/amustafa/.asdf/shims/python3"
-    else
-        " Ubuntu configuration
-        let g:python3_host_prog = $NVIM_PYTHON_VENV
-    endif
-endif
+" if has('unix')
+"     " Check for Mac
+"     if filereadable('/usr/bin/sw_vers')
+"         " Mac configuration
+"         let g:python_host_prog = "/Users/amustafa/.asdf/shims/python"
+"         let g:python3_host_prog = "/Users/amustafa/.asdf/shims/python3"
+"     else
+"         " Ubuntu configuration
+"         let g:python_host_prog = "/Users/amustafa/.asdf/shims/python"
+"         let g:python3_host_prog = "/Users/amustafa/.asdf/shims/python3"
+"     endif
+" endif
 
 
 " Enable filetype plugins
@@ -410,7 +411,7 @@ set guioptions-=L
 
 " Colorscheme
 set background=dark
-colorscheme peaksea
+" colorscheme peaksea
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

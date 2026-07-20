@@ -1,19 +1,18 @@
 # Do not add python
 cd git
-zsh install.zsh
+zsh install.sh
 cd ..
 
 
 cd node
-zsh install.zsh
+zsh node_install.sh
 cd ..
 
 cd rust
-zsh install.zsh
+zsh install.sh
 cd ..
 
-cd spark
-install.zsh
-cd ..
+# spark has no automated installer; install.sh is just a manual reminder
+cat spark/install.sh
 
 # DO NOT AUTO ADD CUDA

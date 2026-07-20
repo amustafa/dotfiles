@@ -58,19 +58,67 @@ let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore-vcs --hidden'
 :noremap <c-p> :Files<cr>
 :noremap <c-b> :Buffers<cr>
 :noremap <c-f> :Rg<cr>
+" :noremap <c-p> :lua require('fzf-lua').files()<cr>
+" :noremap <c-b> :lua require('fzf-lua').buffers()<cr>
+" :noremap <c-f> :lua require('fzf-lua').live_grep()<cr>
 
-
-""""""""""""""""""""""""""""""
-" => snipMate (beside <TAB> support <CTRL-j>)
-""""""""""""""""""""""""""""""
-ino <c-j> <c-r>=snipMate#TriggerSnippet()<cr>
-snor <c-j> <esc>i<right><c-r>=snipMate#TriggerSnippet()<cr>
 
 
 """"""""""""""""""""""""""""""
 " => LuaSnip
 """"""""""""""""""""""""""""""
 " lua require("luasnip.loaders.from_vscode").lazy_load()
+lua <<EOF
+local luasnip = require("luasnip")
+local cmp = require("cmp")
+
+cmp.setup({
+
+  -- ... Your other configuration ...
+
+  mapping = {
+
+    -- ... Your other mappings ...
+   ['<CR>'] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+            if luasnip.expandable() then
+                luasnip.expand()
+            else
+                cmp.confirm({
+                    select = true,
+                })
+            end
+        else
+            fallback()
+        end
+    end),
+
+    ["<C-l>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.locally_jumpable(1) then
+        luasnip.jump(1)
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+
+    ["<C-h>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.locally_jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+
+    -- ... Your other mappings ...
+  },
+
+  -- ... Your other configuration ...
+})
+EOF
 
 """"""""""""""""""""""""""""""
 " => Vim grep
@@ -137,21 +185,6 @@ nnoremap <leader>sp viw:lua require('spectre').open_file_search()<cr>
 lua require('spectre').setup()
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => CHAD Tree
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:chadtree_settings = {
-"     \ "view.open_direction": "right",
-"     \ "view.width": 35,
-"     \ }
-" map <leader>nn :CHADopen<cr>
-
-" " If previous buffer was NERDTree, go back to it.
-" autocmd BufEnter * if bufname('#') =~# "^CHAD_tree_" | b# | endif
-
-" " Automatically close if CHADTree is last buffer
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:CHADTree") && b:CHADTree.isTabTree()) | q | endif
-"
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => spellsitter
@@ -250,7 +283,7 @@ lua <<EOF
       { name = "cody" },
       { name = 'nvim_lsp' },
       -- { name = 'vsnip' }, -- For vsnip users.
-      { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'luasnip' }, -- For luasnip users.
       -- { name = 'ultisnips' }, -- For ultisnips users.
       -- { name = 'snippy' }, -- For snippy users.
     }, {
@@ -308,7 +341,7 @@ lua <<EOF
   require('lspconfig').bashls.setup{}
 
   -- bufls
-  require'lspconfig'.bufls.setup{}
+  require'lspconfig'.buf_ls.setup{}
 
   -- dockerls
   require'lspconfig'.dockerls.setup{}
@@ -321,6 +354,17 @@ lua <<EOF
   -- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
   --   capabilities = capabilities
   -- }
+
+require('litee.lib').setup({
+    tree = {
+        icon_set = "codicons"
+    },
+    panel = {
+        orientation = "left",
+        panel_size  = 30
+    }
+})
+require("litee.gh").setup()
 EOF
 
 
@@ -432,10 +476,130 @@ let g:lightline#ale#indicator_ok = "\uf00c  "
 " => Vim-go
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:go_fmt_command = "goimports -local"
-lua require('go').setup()
+
+lua <<EOF
+require('go').setup({
+
+  disable_defaults = false, -- true|false when true set false to all boolean settings and replace all tables
+  -- settings with {}; string will be set to ''. user need to setup ALL the settings
+  -- It is import to set ALL values in your own config if set value to true otherwise the plugin may not work
+  max_line_len = 0, -- max line length in golines format, Target maximum line length for golines
+  tag_transform = false, -- can be transform option("snakecase", "camelcase", etc) check gomodifytags for details and more options
+  lsp_semantic_highlights = true, -- use highlights from gopls
+  lsp_cfg = false, -- true: use non-default gopls setup specified in go/lsp.lua
+                   -- false: do nothing
+                   -- if lsp_cfg is a table, merge table with with non-default gopls setup in go/lsp.lua, e.g.
+                   -- lsp_cfg = {settings={gopls={matcher='CaseInsensitive', ['local'] = 'your_local_module_path', gofumpt = true }}}
+  lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
+                      -- false: do not set default gofmt in gopls format to gofumpt
+  lsp_on_attach = nil, -- nil: use on_attach function defined in go/lsp.lua,
+                       --      when lsp_cfg is true
+                       -- if lsp_on_attach is a function: use this function as on_attach function for gopls
+  lsp_keymaps = true,  -- set to false to disable gopls/lsp keymap
+  lsp_codelens = true,  -- set to false to disable codelens, true by default, you can use a function
+                        -- function(bufnr)
+                        --    vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>F", "<cmd>lua vim.lsp.buf.formatting()<CR>", {noremap=true, silent=true})
+                        -- end
+                        -- to setup a table of codelens
+  null_ls = {           -- set to false to disable null-ls setup
+    golangci_lint = {
+      method = {"NULL_LS_DIAGNOSTICS_ON_SAVE", "NULL_LS_DIAGNOSTICS_ON_OPEN"}, -- when it should run
+      -- disable = {'errcheck', 'staticcheck'}, -- linters to disable empty by default
+      -- enable = {'govet', 'ineffassign','revive', 'gosimple'}, -- linters to enable; empty by default
+      severity = vim.diagnostic.severity.INFO, -- severity level of the diagnostics
+    },
+  },
+  diagnostic = {  -- set diagnostic to false to disable vim.diagnostic.config setup,
+                  -- true: default nvim setup
+    hdlr = false, -- hook lsp diag handler and send diag to quickfix
+    underline = true,
+    virtual_text = { spacing = 2, prefix = '' }, -- virtual text setup
+    signs = {'', '', '', ''},  -- set to true to use default signs, an array of 4 to specify custom signs
+    update_in_insert = false,
+  },
+  -- if you need to setup your ui for input and select, you can do it here
+  -- go_input = require('guihua.input').input -- set to vim.ui.input to disable guihua input
+  -- go_select = require('guihua.select').select -- vim.ui.select to disable guihua select
+  lsp_document_formatting = true,
+  -- set to true: use gopls to format
+  -- false if you want to use other formatter tool(e.g. efm, nulls)
+  lsp_inlay_hints = {
+    enable = true, -- this is the only field apply to neovim > 0.10
+
+   -- following are used for neovim < 0.10 which does not implement inlay hints
+   -- hint style, set to 'eol' for end-of-line hints, 'inlay' for inline hints
+    style = 'inlay',
+    -- Note: following setup only works for style = 'eol', you do not need to set it for 'inlay'
+    -- Only show inlay hints for the current line
+    only_current_line = false,
+    -- Event which triggers a refersh of the inlay hints.
+    -- You can make this "CursorMoved" or "CursorMoved,CursorMovedI" but
+    -- not that this may cause higher CPU usage.
+    -- This option is only respected when only_current_line and
+    -- autoSetHints both are true.
+    only_current_line_autocmd = "CursorHold",
+    -- whether to show variable name before type hints with the inlay hints or not
+    -- default: false
+    show_variable_name = true,
+    -- prefix for parameter hints
+    parameter_hints_prefix = "󰊕 ",
+    show_parameter_hints = true,
+    -- prefix for all the other hints (type, chaining)
+    other_hints_prefix = "=> ",
+    -- whether to align to the length of the longest line in the file
+    max_len_align = false,
+    -- padding from the left if max_len_align is true
+    max_len_align_padding = 1,
+    -- whether to align to the extreme right or not
+    right_align = false,
+    -- padding from the right if right_align is true
+    right_align_padding = 6,
+    -- The color of the hints
+    highlight = "Comment",
+  },
+  gopls_cmd = nil, -- if you need to specify gopls path and cmd, e.g {"/home/user/lsp/gopls", "-logfile","/var/log/gopls.log" }
+  gopls_remote_auto = true, -- add -remote=auto to gopls
+  gocoverage_sign = "█",
+  sign_priority = 5, -- change to a higher number to override other signs
+  dap_debug = true, -- set to false to disable dap
+  dap_debug_keymap = true, -- true: use keymap for debugger defined in go/dap.lua
+                           -- false: do not use keymap in go/dap.lua.  you must define your own.
+                           -- Windows: Use Visual Studio keymap
+  dap_debug_gui = {}, -- bool|table put your dap-ui setup here set to false to disable
+  dap_debug_vt = { enabled = true, enabled_commands = true, all_frames = true }, -- bool|table put your dap-virtual-text setup here set to false to disable
+
+  dap_port = 38697, -- can be set to a number, if set to -1 go.nvim will pick up a random port
+  dap_timeout = 15, --  see dap option initialize_timeout_sec = 15,
+  dap_retries = 20, -- see dap option max_retries
+  dap_enrich_config = nil, -- see dap option enrich_config
+  textobjects = true, -- enable default text objects through treesittter-text-objects
+  test_runner = 'go', -- one of {`go`,  `dlv`, `ginkgo`, `gotestsum`}
+  verbose_tests = true, -- set to add verbose flag to tests deprecated, see '-v' option
+  run_in_floaterm = false, -- set to true to run in a float window. :GoTermClose closes the floatterm
+                           -- float term recommend if you use gotestsum ginkgo with terminal color
+
+  floaterm = {   -- position
+    posititon = 'auto', -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
+    width = 0.45, -- width of float window if not auto
+    height = 0.98, -- height of float window if not auto
+    title_colors = 'nord', -- default to nord, one of {'nord', 'tokyo', 'dracula', 'rainbow', 'solarized ', 'monokai'}
+                              -- can also set to a list of colors to define colors to choose from
+                              -- e.g {'#D8DEE9', '#5E81AC', '#88C0D0', '#EBCB8B', '#A3BE8C', '#B48EAD'}
+  },
+  trouble = false, -- true: use trouble to open quickfix
+  test_efm = false, -- errorfomat for quickfix, default mix mode, set to true will be efm only
+  luasnip = true, -- enable included luasnip snippets. you can also disable while add lua/snips folder to luasnip load
+  --  Do not enable this if you already added the path, that will duplicate the entries
+  on_jobstart = function(cmd) _=cmd end, -- callback for stdout
+  on_stdout = function(err, data) _, _ = err, data end, -- callback when job started
+  on_stderr = function(err, data)  _, _ = err, data  end, -- callback for stderr
+  on_exit = function(code, signal, output)  _, _, _ = code, signal, output  end, -- callback for jobexit, output : string
+  iferr_vertical_shift = 4 -- defines where the cursor will end up vertically from the begining of if err statement
+})
+EOF
 lua require("go.format").goimports()  -- goimports + gofmt
 
-autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
+autocmd BufWritePre *.go :silent! lua require('go.format').goimports()
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 lua require'lspconfig'.gopls.setup{}
@@ -693,4 +857,191 @@ EOF
 
 lua <<EOF
 require'navigator'.setup()
+require'pipeline'.setup()
+require"octo".setup()
+require"fzf-lua".setup()
+
+require('claude-code').setup()
+require("supermaven-nvim").setup({})
+require("copilot").setup({})
+require('avante').setup()
+require('snacks').setup({
+    bigfile = {
+      notify = true, -- show notification when big file detected
+      size = 1.5 * 1024 * 1024, -- 1.5MB
+      line_length = 1000, -- average line length (useful for minified files)
+      -- Enable or disable features when big file detected
+      ---@param ctx {buf: number, ft:string}
+      setup = function(ctx)
+        if vim.fn.exists(":NoMatchParen") ~= 0 then
+          vim.cmd([[NoMatchParen]])
+        end
+        Snacks.util.wo(0, { foldmethod = "manual", statuscolumn = "", conceallevel = 0 })
+        vim.b.minianimate_disable = true
+        vim.schedule(function()
+          if vim.api.nvim_buf_is_valid(ctx.buf) then
+            vim.bo[ctx.buf].syntax = ctx.ft
+          end
+        end)
+      end,
+    },
+    indent = { enabled = true },
+    -- picker = { enabled = true },
+    notifier = { enabled = true },
+    quickfile = { enabled = true },
+    scope = { enabled = true },
+    scroll = { enabled = true },
+    statuscolumn = { enabled = true },
+    words = { enabled = true },
+    input = {
+      icon = " ",
+      icon_hl = "SnacksInputIcon",
+      icon_pos = "left",
+      prompt_pos = "title",
+      win = { style = "input" },
+      expand = true,
+    },
+    image = {
+      formats = {
+        "png",
+        "jpg",
+        "jpeg",
+        "gif",
+        "bmp",
+        "webp",
+        "tiff",
+        "heic",
+        "avif",
+        "mp4",
+        "mov",
+        "avi",
+        "mkv",
+        "webm",
+        "pdf",
+      },
+      force = false, -- try displaying the image, even if the terminal does not support it
+      doc = {
+        -- enable image viewer for documents
+        -- a treesitter parser must be available for the enabled languages.
+        enabled = true,
+        -- render the image inline in the buffer
+        -- if your env doesn't support unicode placeholders, this will be disabled
+        -- takes precedence over `opts.float` on supported terminals
+        inline = true,
+        -- render the image in a floating window
+        -- only used if `opts.inline` is disabled
+        float = true,
+        max_width = 80,
+        max_height = 40,
+        -- Set to `true`, to conceal the image text when rendering inline.
+        -- (experimental)
+        ---@param lang string tree-sitter language
+        ---@param type snacks.image.Type image type
+        conceal = function(lang, type)
+          -- only conceal math expressions
+          return type == "math"
+        end,
+      },
+      img_dirs = { "img", "images", "assets", "static", "public", "media", "attachments" },
+      -- window options applied to windows displaying image buffers
+      -- an image buffer is a buffer with `filetype=image`
+      wo = {
+        wrap = false,
+        number = false,
+        relativenumber = false,
+        cursorcolumn = false,
+        signcolumn = "no",
+        foldcolumn = "0",
+        list = false,
+        spell = false,
+        statuscolumn = "",
+      },
+      cache = vim.fn.stdpath("cache") .. "/snacks/image",
+      debug = {
+        request = false,
+        convert = false,
+        placement = false,
+      },
+      env = {},
+      -- icons used to show where an inline image is located that is
+      -- rendered below the text.
+      icons = {
+        math = "󰪚 ",
+        chart = "󰄧 ",
+        image = " ",
+      },
+      ---@class snacks.image.convert.Config
+      convert = {
+        notify = true, -- show a notification on error
+        ---@type snacks.image.args
+        mermaid = function()
+          local theme = vim.o.background == "light" and "neutral" or "dark"
+          return { "-i", "{src}", "-o", "{file}", "-b", "transparent", "-t", theme, "-s", "{scale}" }
+        end,
+        ---@type table<string,snacks.image.args>
+        magick = {
+          default = { "{src}[0]", "-scale", "1920x1080>" }, -- default for raster images
+          vector = { "-density", 192, "{src}[0]" }, -- used by vector images like svg
+          math = { "-density", 192, "{src}[0]", "-trim" },
+          pdf = { "-density", 192, "{src}[0]", "-background", "white", "-alpha", "remove", "-trim" },
+        },
+      },
+      math = {
+        enabled = true, -- enable math expression rendering
+        -- in the templates below, `${header}` comes from any section in your document,
+        -- between a start/end header comment. Comment syntax is language-specific.
+        -- * start comment: `// snacks: header start`
+        -- * end comment:   `// snacks: header end`
+        typst = {
+          tpl = [[
+            #set page(width: auto, height: auto, margin: (x: 2pt, y: 2pt))
+            #show math.equation.where(block: false): set text(top-edge: "bounds", bottom-edge: "bounds")
+            #set text(size: 12pt, fill: rgb("${color}"))
+            ${header}
+            ${content}]],
+        },
+        latex = {
+          font_size = "Large", -- see https://www.sascha-frank.com/latex-font-size.html
+          -- for latex documents, the doc packages are included automatically,
+          -- but you can add more packages here. Useful for markdown documents.
+          packages = { "amsmath", "amssymb", "amsfonts", "amscd", "mathtools" },
+          tpl = [[
+            \documentclass[preview,border=0pt,varwidth,12pt]{standalone}
+            \usepackage{${packages}}
+            \begin{document}
+            ${header}
+            { \${font_size} \selectfont
+              \color[HTML]{${color}}
+            ${content}}
+            \end{document}]],
+        },
+      },
+    }
+})
+EOF
+" require("dbee").setup()
+"
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => harpoon
+" https://github.com/ThePrimeagen/harpoon
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+lua <<EOF
+local harpoon = require("harpoon")
+
+-- REQUIRED
+harpoon:setup()
+-- REQUIRED
+
+vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
+vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
+vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
+vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
+
+-- Toggle previous & next buffers stored within Harpoon list
+vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
+vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
 EOF
