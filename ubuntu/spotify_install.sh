@@ -1,12 +1,16 @@
-# # 1. Add the Spotify repository signing keys to be able to verify downloaded packages
-# sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886 0DF731E45CE24F27EEEB1450EFDC8610341D9410
+#!/usr/bin/env bash
+set -eo pipefail
 
-# # 2. Add the Spotify repository
-# echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
+# Load shared helpers (confirm, ...).
+_h="$(cd "$(dirname "$0")" && pwd)"; _r="$_h"
+while [ "$_r" != "/" ] && [ ! -f "$_r/lib.sh" ]; do _r="$(dirname "$_r")"; done
+. "$_r/lib.sh"
 
-# # 3. Update list of available packages
-# sudo apt-get update
+if snap list spotify >/dev/null 2>&1; then
+    echo "Spotify already installed"
+    exit 0
+fi
 
-# # 4. Install Spotify
-# sudo apt-get install spotify-client
+confirm "Install Spotify?" || exit 0
+
 sudo snap install spotify

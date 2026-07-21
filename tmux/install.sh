@@ -1,55 +1,57 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+# Load shared helpers (confirm, ...).
+_h="$(cd "$(dirname "$0")" && pwd)"; _r="$_h"
+while [ "$_r" != "/" ] && [ ! -f "$_r/lib.sh" ]; do _r="$(dirname "$_r")"; done
+. "$_r/lib.sh"
+
+cd "$(dirname "$0")"
+
 # Tmux Installer
 
 # Install Tmux
-if (which tmux); then
+if command -v tmux >/dev/null 2>&1; then
     echo "Tmux already installed"
-else
+elif confirm "Install tmux?"; then
     echo "Installing application"
-    if [ "`uname -s`" = Linux ]; then
-        sudo apt-get install tmux
-    elif [ "`uname -s`" = Darwin ]; then
-        brew install tmux
-        brew install reattach-to-user-namespace
+    if [ "$(uname -s)" = Linux ]; then
+        sudo apt-get update
+        sudo apt-get install -y tmux
+    elif [ "$(uname -s)" = Darwin ]; then
+        brew install tmux reattach-to-user-namespace
     fi
 fi
 
 # Set default environment variables
 echo "Setting Environment vars"
-if [ -z ${XDG_CONFIG_HOME+x} ]; then  # if var is unset
-    export XDG_CONFIG_HOME="$HOME/.config"
-fi
-
-if [ -z ${AM_TMUX_CONFIG_HOME+x} ]; then
-    export AM_TMUX_CONFIG_HOME="${XDG_CONFIG_HOME}/tmux"
-fi
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export AM_TMUX_CONFIG_HOME="${AM_TMUX_CONFIG_HOME:-$XDG_CONFIG_HOME/tmux}"
 
 # Clone tpm into the .tmux folder
 if [ -e ~/.tmux/plugins/tpm ]; then
     echo "tpm already installed"
-else
+elif confirm "Install tpm (tmux plugin manager)?"; then
     echo "Installing tpm"
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
-mkdir -p $AM_TMUX_CONFIG_HOME
+mkdir -p "$AM_TMUX_CONFIG_HOME"
 
-# Copy gpabosz tmux conf
-if [ -e ~/.tmux/plugins/tpm ]; then
-    echo "Copying gpakosz tmux conf"
-    curl https://raw.githubusercontent.com/gpakosz/.tmux/master/.tmux.conf |
-        sed "s@~/.tmux.conf.local@$AM_TMUX_CONFIG_HOME/tmux.conf.local@g" |
-        sed "s@~/.tmux.conf@$AM_TMUX_CONFIG_HOME/gpakosz.tmux.conf@g"  > $AM_TMUX_CONFIG_HOME/gpakosz.tmux.conf
-fi
+# Copy gpakosz tmux conf
+echo "Copying gpakosz tmux conf"
+curl -fsSL https://raw.githubusercontent.com/gpakosz/.tmux/master/.tmux.conf |
+    sed "s@~/.tmux.conf.local@$AM_TMUX_CONFIG_HOME/tmux.conf.local@g" |
+    sed "s@~/.tmux.conf@$AM_TMUX_CONFIG_HOME/gpakosz.tmux.conf@g" > "$AM_TMUX_CONFIG_HOME/gpakosz.tmux.conf"
 
 # Copy config files
 echo "Copying config files"
-cp tmux/* $AM_TMUX_CONFIG_HOME
+cp tmux/* "$AM_TMUX_CONFIG_HOME"
 
 # link to expected location
-if [ -e  $HOME/.tmux.conf ]; then
-    echo ".tmux already exists, moving to .tmux.conf.old"
-    mv $HOME/.tmux.conf $HOME/.tmux.conf.old
-
+if [ -e "$HOME/.tmux.conf" ] && [ ! -L "$HOME/.tmux.conf" ]; then
+    echo ".tmux.conf already exists, moving to .tmux.conf.old"
+    mv "$HOME/.tmux.conf" "$HOME/.tmux.conf.old"
 fi
 echo "Linking .tmux.conf to home"
-ln -s $AM_TMUX_CONFIG_HOME/tmux.conf $HOME/.tmux.conf
+ln -sfn "$AM_TMUX_CONFIG_HOME/tmux.conf" "$HOME/.tmux.conf"

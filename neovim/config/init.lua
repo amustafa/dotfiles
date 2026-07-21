@@ -101,6 +101,27 @@ vim.g.maplocalleader = " "
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- [[ Language providers ]]
+-- The node provider stays enabled (install the host with `npm install -g neovim`,
+-- which neovim/install.sh does). Perl/ruby remote-plugin providers are unused, so
+-- disable them to keep `:checkhealth` quiet (and skip their startup probing).
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+
+-- Point the python3 provider at the real asdf interpreter rather than letting
+-- Neovim discover the `~/.asdf/shims` shim, which it mistakes for a broken pyenv
+-- install. pynvim is installed into this interpreter (see neovim/install.sh).
+if vim.fn.executable("asdf") == 1 then
+	local py = vim.fn.trim(vim.fn.system({ "asdf", "which", "python3" }))
+	if vim.v.shell_error == 0 and py ~= "" then
+		vim.g.python3_host_prog = py
+	end
+end
+
+-- gopls advertises the 'gotmpl' filetype; register it so the LSP health check
+-- stops warning that it is unknown.
+vim.filetype.add({ extension = { gotmpl = "gotmpl" } })
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
@@ -887,7 +908,6 @@ require("lazy").setup({
 				opts = {},
 			},
 			"folke/lazydev.nvim",
-			"fang2hou/blink-copilot",
 		},
 		--- @module 'blink.cmp'
 		--- @type blink.cmp.Config
@@ -933,15 +953,9 @@ require("lazy").setup({
 			},
 
 			sources = {
-				default = { "lsp", "path", "snippets", "lazydev", "copilot" },
+				default = { "lsp", "path", "snippets", "lazydev" },
 				providers = {
 					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
-					copilot = {
-						name = "copilot",
-						module = "blink-copilot",
-						score_offset = 100,
-						async = true,
-					},
 				},
 			},
 
@@ -954,7 +968,10 @@ require("lazy").setup({
 			-- the rust implementation via `'prefer_rust_with_warning'`
 			--
 			-- See :h blink-cmp-config-fuzzy for more information
-			fuzzy = { implementation = "lua" },
+			-- 'prefer_rust' downloads the prebuilt fuzzy lib for the pinned version
+			-- (falling back to lua if unavailable), which clears the checkhealth
+			-- "blink_cmp_fuzzy lib is not downloaded/built" warning.
+			fuzzy = { implementation = "prefer_rust" },
 
 			-- Shows a signature help window while you type arguments for a function
 			signature = { enabled = true },
@@ -1008,6 +1025,9 @@ require("lazy").setup({
 	},
 	{ -- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
+		-- Pin to the stable `master` branch: the new default `main` branch is a
+		-- rewrite that drops the `nvim-treesitter.configs` module and this opts API.
+		branch = "master",
 		build = ":TSUpdate",
 		main = "nvim-treesitter.configs", -- Sets main module to use for opts
 		-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
@@ -1026,6 +1046,7 @@ require("lazy").setup({
 				"vimdoc",
 				"go",
 				"graphql",
+				"yaml",
 			},
 			-- Autoinstall languages that are not installed
 			auto_install = true,
@@ -1172,13 +1193,14 @@ require("lazy").setup({
 	require("plugins.gitsigns"), -- adds gitsigns recommend keymaps
 
 	require("plugins.rayx_go"),
-	require("plugins.copilot"),
+	-- require("plugins.copilot"), -- disabled
 	require("plugins.git"),
 	require("plugins.harpoon"),
 	require("plugins.snacks"),
 	require("plugins.ai"),
 	require("plugins.colorschemes"),
-	require("plugins.komments"),
+	require("plugins.octo"),
+	-- require("plugins.komments"), -- disabled
 
 	-- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
 	--    This is the easiest way to modularize your config.
@@ -1192,6 +1214,9 @@ require("lazy").setup({
 	-- you can continue same window with `<space>sr` which resumes last telescope search
 	--
 }, {
+	-- No plugin here needs luarocks; disabling lazy's rocks support avoids the
+	-- checkhealth warnings about needing Lua 5.1 / lua5.1.
+	rocks = { enabled = false },
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the
 		-- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table

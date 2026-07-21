@@ -1,20 +1,19 @@
-# install proprietary graphics drivers
+#!/usr/bin/env bash
+set -eo pipefail
+cd "$(dirname "$0")"
 
-# install theme
+# Map Caps Lock to Ctrl (idempotent; use straight quotes so xkb parses it).
+if ! grep -q 'caps:ctrl_modifier' /etc/default/keyboard 2>/dev/null; then
+    echo 'XKBOPTIONS="caps:ctrl_modifier"' | sudo tee -a /etc/default/keyboard >/dev/null
+fi
+setxkbmap -option caps:ctrl_modifier || true
 
-echo 'XKBOPTIONS=“caps:ctrl_modifier”' >> /etc/default/keyboard
-setxkbmap -option caps:ctrl_modifier
+# Optional apps: isolate failures so one bad install doesn't abort the rest.
+for s in chrome.sh croc_install.sh java_install.sh keybase.sh mega_install.sh \
+         spotify_install.sh virtualbox.sh yubikey_install.sh; do
+    echo "=== $s ==="
+    bash "$s" || echo "WARN: $s failed, continuing"
+done
 
-zsh chrome.sh
-zsh croc_install.sh
-zsh java_install.sh
-zsh keybase.sh
-zsh mega_install.sh
-zsh spotify_install.sh
-zsh virtualbox.sh
-zsh yubikey_install.sh
-
-
-
-echo "Go into Compiz setting manager and change desktop number General Options > Desktop Size"
-echo "Go into Compiz setting manager and auto focus number General Options > Focus and Raise Behavior and then clear the 'Focus PreventionWindows'"
+echo "Compiz: General Options > Desktop Size to set desktop number."
+echo "Compiz: General Options > Focus and Raise Behavior, clear 'Focus Prevention Windows'."

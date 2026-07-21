@@ -1,6 +1,21 @@
 # System Installation and Configuration
 
-`curl https://raw.githubusercontent.com/amustafa/dotfiles/master/install.sh | sh`
+The installer prompts `[y/N]` before **each** install, so run it in an interactive
+terminal (clone first — piping into `sh` is non-interactive and skips everything):
+
+```sh
+git clone git@github.com:amustafa/dotfiles.git ~/workspace/dotfiles
+cd ~/workspace/dotfiles
+bash install.sh
+```
+
+Environment overrides for unattended runs:
+
+* `ASSUME_YES=1 bash install.sh` — accept every prompt (install everything)
+* `ASSUME_NO=1 bash install.sh` — decline every prompt
+
+Individual installers can be run the same way, e.g. `ASSUME_YES=1 bash applications/eza_install.sh`.
+Anything already installed is detected and skipped without prompting.
 
 # Effects
 
@@ -12,7 +27,8 @@ Adds `usr`, `opt`, and `bin` to $HOME:
 All config files are placed in `.config`.
 
 ## Install Python
-    Since many of the underlying scripts use python, this is the first thing that is installed. Python 3.7.3 is the current version.
+    Language runtimes (python, node, rust, java) are managed by asdf, which is
+    installed first. Python is installed at the latest version via `asdf install python latest`.
 
 ## Common Install
 located @ common_install.txt

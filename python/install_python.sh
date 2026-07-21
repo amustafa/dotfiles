@@ -1,44 +1,34 @@
-# Install pyenv, add to path, build and install python, set python version
+#!/usr/bin/env bash
+set -eo pipefail
 
-# Install Prereqs
+# Load shared helpers (confirm, ...).
+_h="$(cd "$(dirname "$0")" && pwd)"; _r="$_h"
+while [ "$_r" != "/" ] && [ ! -f "$_r/lib.sh" ]; do _r="$(dirname "$_r")"; done
+. "$_r/lib.sh"
+
+confirm "Install Python (latest, via asdf)?" || exit 0
+
+# Python is managed by asdf (see asdf/install.sh). Replaces the old pyenv setup.
+# asdf's python plugin builds CPython from source (python-build), so the same
+# build prerequisites pyenv needed are still required.
 # https://github.com/pyenv/pyenv/wiki/Common-build-problems
-DEPS_INSTALLED=""
-if [ "`uname -s`" = Linux ]; then
+if [ "$(uname -s)" = Linux ]; then
+    sudo apt-get update
     sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
-    libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
-    xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
-    DEPS_INSTALLED=TRUE
-elif [ "`uname -s`" = Darwin ]; then
-    brew install readline xz
-    DEPS_INSTALLED=TRUE
+        libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+        xz-utils tk-dev libffi-dev liblzma-dev python3-openssl git
+elif [ "$(uname -s)" = Darwin ]; then
+    brew install openssl readline sqlite3 xz zlib tcl-tk
 fi
 
-export PYENV_ROOT=$HOME/opt/pyenv
-
-if [ $DEPS_INSTALLED = "TRUE" ]; then
-    # https://github.com/pyenv/pyenv-installer
-    curl https://pyenv.run | bash
-
-    export PATH="${PYENV_ROOT}/bin:$PATH"
-    eval "$(pyenv init -)"
-    git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
-    eval "$(pyenv virtualenv-init -)"
-
-    if [ "`uname -s`" = Linux ]; then
-        pyenv install 3.7.4
-        pyenv global 3.7.4
-        # Instal pyenv virtual env
-        pyenv virtualenv 3.7.4 nvim
-    else
-        pyenv install 3.7.2
-        pyenv global 3.7.2
-        # Instal pyenv virtual env
-        pyenv virtualenv 3.7.2 nvim
-    fi
-
-
-else
-    echo "DEPS NOT INSTALLED"
+if ! command -v asdf >/dev/null 2>&1; then
+    echo "asdf not found; run asdf/install.sh first."
+    exit 1
 fi
 
-pip install requests
+asdf plugin add python || true
+asdf install python latest
+asdf set --home python latest
+
+python -m pip install --upgrade pip
+python -m pip install requests

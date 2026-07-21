@@ -3,10 +3,7 @@
 # Adds these paths if they are not already there. Put in order from front to back --> a, b --> a:b
 PATHS_TO_ADD=$HOME/bin
 
-if [ -d $CARGO_ROOT ]; then
-    PATHS_TO_ADD=${PATHS_TO_ADD}:$CARGO_ROOT/bin
-fi
-
+# Rust (cargo) is provided by asdf shims; no separate CARGO_ROOT/bin needed.
 PATHS_TO_ADD=${PATHS_TO_ADD}:/usr/local/bin:~/go/bin
 PATHS_TO_ADD=${PATHS_TO_ADD}:~/.local/bin
 

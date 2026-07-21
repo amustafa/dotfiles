@@ -1,4 +1,5 @@
 *.deb
+*.phar
 config.local.ini
 */**/.mypy_cache/
 .mypy_cache/

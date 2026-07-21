@@ -1,17 +1,21 @@
-# Install pyenv, add to path, build and install python, set python version
+#!/usr/bin/env bash
+set -eo pipefail
 
-# Install Prereqs
+# Load shared helpers (confirm, ...).
+_h="$(cd "$(dirname "$0")" && pwd)"; _r="$_h"
+while [ "$_r" != "/" ] && [ ! -f "$_r/lib.sh" ]; do _r="$(dirname "$_r")"; done
+. "$_r/lib.sh"
+
+confirm "Install Python build prerequisites?" || exit 0
+
+# Build prerequisites for compiling CPython from source.
 # https://github.com/pyenv/pyenv/wiki/Common-build-problems
-DEPS_INSTALLED=""
-if [ "`uname -s`" = Linux ]; then
-    sudo apt-get install build-essential gdb lcov pkg-config \
-      libbz2-dev libffi-dev libgdbm-dev libgdbm-compat-dev liblzma-dev \
-      libncurses5-dev libreadline6-dev libsqlite3-dev libssl-dev \
-      lzma lzma-dev tk-dev uuid-dev zlib1g-dev
-    DEPS_INSTALLED=TRUE
-elif [ "`uname -s`" = Darwin ]; then
-    brew install readline xz
-    # sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /
-    DEPS_INSTALLED=TRUE
+if [ "$(uname -s)" = Linux ]; then
+    sudo apt-get update
+    sudo apt-get install -y build-essential gdb lcov pkg-config \
+        libbz2-dev libffi-dev libgdbm-dev libgdbm-compat-dev liblzma-dev \
+        libncurses5-dev libreadline6-dev libsqlite3-dev libssl-dev \
+        lzma lzma-dev tk-dev uuid-dev zlib1g-dev
+elif [ "$(uname -s)" = Darwin ]; then
+    brew install openssl readline sqlite3 xz zlib tcl-tk
 fi
-

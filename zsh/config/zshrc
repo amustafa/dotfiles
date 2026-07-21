@@ -77,12 +77,11 @@ fi
 zstyle ':completion:*' menu select
 fpath+=~/.zfunc
 
- . "$HOME/.asdf/asdf.sh"
-
-#echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
-# append completions to fpath
-fpath=(${ASDF_DIR}/completions $fpath)
-# initialise completions with ZSH's compinit
+# asdf 0.16+ is a single binary: put its shims on PATH (no more asdf.sh to source).
+export ASDF_DATA_DIR="${ASDF_DATA_DIR:-$HOME/.asdf}"
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
+# append asdf completions to fpath, then initialise ZSH's compinit
+fpath=(${ASDF_DATA_DIR}/completions $fpath)
 autoload -Uz compinit && compinit
 
 
@@ -111,7 +110,7 @@ _gt_yargs_completions()
 compdef _gt_yargs_completions gt
 ###-end-gt-completions-###
 
-eval "$(starship init zsh)"
+command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
 
 clear
 
@@ -126,7 +125,7 @@ alias taskmaster='task-master'
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
 
 
-source <(COMPLETE=zsh jj)
+command -v jj >/dev/null 2>&1 && source <(COMPLETE=zsh jj)
 
 # opencode
 export PATH=/home/amustafa/.opencode/bin:$PATH

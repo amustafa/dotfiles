@@ -1,3 +1,17 @@
-sudo apt-get install virtualbox
-sudo apt-get install virtualbox-ext-pack
-sudo apt-get install virtualbox-guest-additions-iso
+#!/usr/bin/env bash
+set -eo pipefail
+
+# Load shared helpers (confirm, ...).
+_h="$(cd "$(dirname "$0")" && pwd)"; _r="$_h"
+while [ "$_r" != "/" ] && [ ! -f "$_r/lib.sh" ]; do _r="$(dirname "$_r")"; done
+. "$_r/lib.sh"
+
+if command -v VBoxManage >/dev/null 2>&1 || dpkg -s virtualbox >/dev/null 2>&1; then
+    echo "VirtualBox already installed"
+    exit 0
+fi
+
+confirm "Install VirtualBox?" || exit 0
+
+sudo apt-get update
+sudo apt-get install -y virtualbox virtualbox-ext-pack virtualbox-guest-additions-iso
