@@ -8,4 +8,5 @@ fi
 bash install_basic_libs.sh
 bash eza_install.sh
 bash fzf_install.sh
+bash docker_install.sh
 bash nerdfonts/install_nerdfonts.sh

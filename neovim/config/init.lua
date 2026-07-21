@@ -1197,7 +1197,8 @@ require("lazy").setup({
 	require("plugins.git"),
 	require("plugins.harpoon"),
 	require("plugins.snacks"),
-	require("plugins.ai"),
+	-- require("plugins.ai"), -- disabled: dropped avante in favor of claudecode
+	require("plugins.claudecode"),
 	require("plugins.colorschemes"),
 	require("plugins.octo"),
 	-- require("plugins.komments"), -- disabled

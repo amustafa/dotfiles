@@ -33,16 +33,35 @@ else
 fi
 
 # CLI tools the neovim config relies on:
-#   * tree-sitter  - parser generator used by nvim-treesitter (auto_install).
 #   * gh           - GitHub CLI required by octo.nvim.
+#   * lazygit      - Snacks.lazygit / lazygit.nvim.
+#   * imagemagick  - `magick`, image conversion for Snacks.image.
+#   * ghostscript  - `gs`, PDF rendering for Snacks.image.
+#   * tectonic     - LaTeX math rendering for Snacks.image.
+#   * mermaid-cli  - `mmdc`, Mermaid diagram rendering for Snacks.image.
+# NOTE: Snacks.image only *displays* images in terminals that support the kitty
+# graphics protocol (kitty/wezterm/ghostty) - not Warp/Terminal.app.
 # brew is available on both macOS and Linux in this setup and is idempotent
 # (skips already-installed formulae).
 if command -v brew >/dev/null 2>&1; then
-    if confirm "Install neovim CLI deps (tree-sitter, gh)?"; then
-        brew install tree-sitter gh
+    if confirm "Install neovim CLI deps (gh, lazygit, imagemagick, ghostscript, tectonic, mermaid-cli)?"; then
+        brew install gh lazygit imagemagick ghostscript tectonic mermaid-cli
     fi
 else
-    echo "brew not found; skipping tree-sitter/gh (install them manually for treesitter + octo.nvim)."
+    echo "brew not found; skipping neovim CLI deps (install gh, lazygit, imagemagick, ghostscript, tectonic, mermaid-cli manually)."
+fi
+
+# tree-sitter CLI (standalone tool). The Homebrew `tree-sitter` formula ships only
+# the library, not the CLI, so install it from npm.
+# NOTE: nvim-treesitter is pinned to its `master` branch, which cannot *generate*
+# parsers that require ABI 15 (e.g. latex) with any current CLI - so those parsers
+# are not in ensure_installed. Parsers that ship pre-generated sources build fine.
+if command -v npm >/dev/null 2>&1; then
+    if confirm "Install tree-sitter CLI (npm -g tree-sitter-cli)?"; then
+        npm install -g tree-sitter-cli
+    fi
+else
+    echo "npm not found; skipping tree-sitter CLI (install node via asdf, then npm install -g tree-sitter-cli)."
 fi
 
 NVIM_APP_DIR="${HOME}/opt"
