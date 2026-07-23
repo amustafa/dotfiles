@@ -62,4 +62,10 @@ if [ "$(uname -s)" = Linux ]; then
     cd ..
 fi
 
+if [ "$(uname -s)" = Darwin ]; then
+    cd macos
+    bash defaults.sh
+    cd ..
+fi
+
 echo "UPDATE ZSHRC"
