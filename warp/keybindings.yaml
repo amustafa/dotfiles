@@ -1,0 +1,6 @@
+---
+"editor_view:insert_autosuggestion": ctrl-space
+"pane_group:toggle_maximize_pane": ctrl-shift-Z
+"workspace:toggle_ai_assistant": none
+"input:open_completion_suggestions": ctrl-space
+"workspace:toggle_maximize_pane": ctrl-shift-z

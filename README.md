@@ -48,3 +48,10 @@ Installs necessary ubuntu packages, indicators, and settings.
 ## Tmux
 
 ## neovim
+
+## Warp
+
+Theme, tab configs, a worktree default, and a complexity-based model router for
+[Warp](https://www.warp.dev/). The tab configs are generalized templates (`{{repo}}`,
+`{{branch_name}}`, etc.) rather than one-off, project-specific configs — copy and
+adapt one for a new project rather than editing in place.

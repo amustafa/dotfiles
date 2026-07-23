@@ -1,0 +1,8 @@
+---
+name: Complexity Router
+type: complexity
+default: claude-5-sonnet-xhigh
+routing:
+  easy: claude-5-sonnet-xhigh
+  medium: claude-4-8-opus-xhigh
+  hard: claude-5-fable-high

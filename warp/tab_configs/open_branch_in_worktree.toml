@@ -1,0 +1,43 @@
+name = "Open Branch in Worktree"
+title = "{{branch_name}}"
+
+[[panes]]
+id = "root"
+split = "horizontal"
+children = ["main", "review"]
+
+[[panes]]
+id = "main"
+type = "terminal"
+is_focused = true
+directory = "{{repo}}"
+commands = [
+    'if [ -d ".worktrees/{{branch_name}}" ]; then echo "Worktree already exists, reusing it"; elif git show-ref --verify --quiet refs/heads/{{branch_name}}; then echo "Using local branch"; git worktree add .worktrees/{{branch_name}} {{branch_name}}; else echo "Fetching remote branch"; git fetch origin {{branch_name}} && git worktree add .worktrees/{{branch_name}} origin/{{branch_name}}; fi',
+    "cd .worktrees/{{branch_name}}",
+    "direnv allow",
+    'wtclose() { cd {{repo}} && git worktree remove .worktrees/{{branch_name}} && echo "Worktree removed. Back in {{repo}}"; }',
+]
+
+[[panes]]
+id = "review"
+type = "terminal"
+directory = "{{repo}}"
+commands = [
+    'while [ ! -d ".worktrees/{{branch_name}}" ]; do sleep 0.5; done',
+    "cd .worktrees/{{branch_name}}",
+    'wtclose() { cd {{repo}} && git worktree remove .worktrees/{{branch_name}} && echo "Worktree removed. Back in {{repo}}"; }',
+    '[[ "{{isPRReview}}" == "yes" ]] && cr review --base main || echo "Skipping CR review (isPRReview != yes)"',
+]
+
+[params.repo]
+description = "Repository to review in"
+type = "repo"
+
+[params.branch_name]
+description = "Remote branch name"
+type = "text"
+
+[params.isPRReview]
+description = "Run CodeRabbit review? (yes/no)"
+type = "text"
+default = "no"

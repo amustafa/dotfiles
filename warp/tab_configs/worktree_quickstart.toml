@@ -1,0 +1,31 @@
+# Worktree + branch quickstart — creates (or reuses) a git worktree for a
+# branch, cds into it, and defines a `wtclose` helper to tear it down when
+# you're done. Generalized from a project-specific tab config: set {{repo}}
+# to any repository, and {{subdir}} if you need to land somewhere below the
+# repo root after entering (e.g. a package inside a monorepo).
+name = "Worktree + Branch"
+
+[[panes]]
+id = "main"
+type = "terminal"
+directory = "{{repo}}"
+commands = [
+    'if [ -d ".worktrees/{{branch_name}}" ]; then echo "Worktree already exists, reusing it"; elif git show-ref --verify --quiet refs/heads/{{branch_name}}; then echo "Using local branch"; git worktree add .worktrees/{{branch_name}} {{branch_name}}; else echo "Creating new branch from latest main"; git fetch origin main && git worktree add -b {{branch_name}} .worktrees/{{branch_name}} origin/main; fi',
+    "cd .worktrees/{{branch_name}}/{{subdir}}",
+    "echo source_up >> .envrc.local",
+    "command -v direnv >/dev/null 2>&1 && direnv allow",
+    'wtclose() { cd {{repo}} && git worktree remove .worktrees/{{branch_name}} && echo "Worktree removed. Back in {{repo}}."; }',
+]
+
+[params.repo]
+description = "Repository to create the worktree in"
+type = "repo"
+
+[params.branch_name]
+description = "Branch name for the new worktree"
+type = "text"
+
+[params.subdir]
+description = "Optional subdirectory to cd into after entering the worktree (e.g. a package inside a monorepo) — leave blank for the repo root"
+type = "text"
+default = ""

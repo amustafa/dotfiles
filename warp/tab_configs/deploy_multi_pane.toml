@@ -1,0 +1,37 @@
+# Three-pane deploy workspace: edit deploy config in one pane, a free shell
+# in the second, and a pane that kicks off the deploy script in the third.
+# Generalized from a project-specific tab config — set {{repo}} to your infra
+# repo and swap the example commands below for your actual deploy tooling.
+name = "Deploy Setup"
+title = "Deploy"
+
+[[panes]]
+id = "p1"
+split = "horizontal"
+children = [
+    "p2",
+    "p3",
+    "p4",
+]
+
+[[panes]]
+id = "p2"
+type = "terminal"
+directory = "{{repo}}"
+commands = ["nvim deploy/version_info.yaml"]
+
+[[panes]]
+id = "p3"
+type = "terminal"
+directory = "{{repo}}"
+
+[[panes]]
+id = "p4"
+type = "terminal"
+is_focused = true
+directory = "{{repo}}"
+commands = ["./deploy.sh"]
+
+[params.repo]
+description = "Deployment repository"
+type = "repo"

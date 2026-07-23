@@ -48,6 +48,10 @@ cd neovim
 bash install.sh
 cd ..
 
+cd warp
+bash install.sh
+cd ..
+
 # cd tmux
 # bash install.sh
 # cd ..
