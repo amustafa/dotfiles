@@ -53,6 +53,10 @@ mollifier/zload
 so-fancy/diff-so-fancy path:third_party/build_fatpack kind:path
 morgant/tools-osx path:src kind:path
 
+# stackr (sr) — worktree auto-cd wrapper + zsh completions.
+# No-op until the `sr` binary is on $PATH (see `make link` in the repo).
+amustafa/stackr
+
 # Deferred plugins (load after prompt, order matters)
 junegunn/fzf path:shell kind:defer
 hschne/fzf-git kind:defer

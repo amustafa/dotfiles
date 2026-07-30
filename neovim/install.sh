@@ -39,16 +39,18 @@ fi
 #   * ghostscript  - `gs`, PDF rendering for Snacks.image.
 #   * tectonic     - LaTeX math rendering for Snacks.image.
 #   * mermaid-cli  - `mmdc`, Mermaid diagram rendering for Snacks.image.
+#   * markdownlint-cli - `markdownlint`, markdown linter used by nvim-lint
+#                    (lua/plugins/lint.lua); saving markdown errors without it.
 # NOTE: Snacks.image only *displays* images in terminals that support the kitty
 # graphics protocol (kitty/wezterm/ghostty) - not Warp/Terminal.app.
 # brew is available on both macOS and Linux in this setup and is idempotent
 # (skips already-installed formulae).
 if command -v brew >/dev/null 2>&1; then
-    if confirm "Install neovim CLI deps (gh, lazygit, imagemagick, ghostscript, tectonic, mermaid-cli)?"; then
-        brew install gh lazygit imagemagick ghostscript tectonic mermaid-cli
+    if confirm "Install neovim CLI deps (gh, lazygit, imagemagick, ghostscript, tectonic, mermaid-cli, markdownlint-cli)?"; then
+        brew install gh lazygit imagemagick ghostscript tectonic mermaid-cli markdownlint-cli
     fi
 else
-    echo "brew not found; skipping neovim CLI deps (install gh, lazygit, imagemagick, ghostscript, tectonic, mermaid-cli manually)."
+    echo "brew not found; skipping neovim CLI deps (install gh, lazygit, imagemagick, ghostscript, tectonic, mermaid-cli, markdownlint-cli manually)."
 fi
 
 # tree-sitter CLI (standalone tool). The Homebrew `tree-sitter` formula ships only
